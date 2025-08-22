@@ -1,0 +1,85 @@
+[gd_scene load_steps=12 format=4 uid="uid://5iieinnysufo"]
+
+[ext_resource type="Script" uid="uid://bu1qupn4eegvq" path="res://scenes/game.gd" id="1_lnu2h"]
+[ext_resource type="Texture2D" uid="uid://0atf2jcjj0wl" path="res://resources/Tile/Tileset1.png" id="2_lbhrr"]
+[ext_resource type="Texture2D" uid="uid://dr51i5n6ce0a0" path="res://resources/Tile/TilesetHighlight.png" id="2_p57ef"]
+[ext_resource type="PackedScene" uid="uid://c3l8pmja4i8j4" path="res://scenes/char.tscn" id="2_yqjtg"]
+[ext_resource type="Script" uid="uid://bmn6wvbh1vvww" path="res://scripts/grid.gd" id="4_iywne"]
+[ext_resource type="Script" uid="uid://dafl8ygf45pcm" path="res://scripts/movement_overlay.gd" id="5_gee14"]
+[ext_resource type="Resource" uid="uid://35j86kr2rrnt" path="res://resources/Definitions/cat.tres" id="5_iywne"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iywne"]
+texture = ExtResource("2_lbhrr")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -3)
+0:1/0 = 0
+0:1/0/texture_origin = Vector2i(0, -3)
+0:1/0/custom_data_0 = true
+0:2/0 = 0
+0:2/0/texture_origin = Vector2i(0, -3)
+0:3/0 = 0
+0:3/0/texture_origin = Vector2i(0, -3)
+0:4/0 = 0
+0:4/0/texture_origin = Vector2i(0, -3)
+0:4/0/custom_data_0 = true
+0:5/0 = 0
+0:5/0/texture_origin = Vector2i(0, -3)
+0:6/0 = 0
+0:6/0/texture_origin = Vector2i(0, -3)
+0:7/0 = 0
+0:7/0/texture_origin = Vector2i(0, -3)
+
+[sub_resource type="TileSet" id="TileSet_p57ef"]
+tile_shape = 3
+tile_layout = 5
+tile_size = Vector2i(32, 22)
+custom_data_layer_0/name = "is_solid"
+custom_data_layer_0/type = 1
+sources/0 = SubResource("TileSetAtlasSource_iywne")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u5sy4"]
+texture = ExtResource("2_p57ef")
+texture_region_size = Vector2i(32, 39)
+0:0/0 = 0
+0:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_gee14"]
+tile_shape = 3
+tile_layout = 5
+tile_size = Vector2i(32, 22)
+custom_data_layer_0/name = "is_solid"
+custom_data_layer_0/type = 1
+sources/0 = SubResource("TileSetAtlasSource_u5sy4")
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_lnu2h")
+
+[node name="LocalHexGrid" type="TileMapLayer" parent="."]
+y_sort_enabled = true
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAMAAAABAAAAAAAAAAMAAAACAAAAAAAAAAQAAAADAAAAAAAAAAQAAAADAAEAAAAAAAIAAAACAAEAAAAAAAQAAAABAAEAAAAAAAQAAAACAAIAAAAAAAIAAAADAAIAAAAAAAIAAAAEAAIAAAAAAAIAAAADAAMAAAAAAAMAAAABAP//AAAAAAMAAAACAP//AAAAAAMAAAAEAAEAAAAAAAIAAAAEAAAAAAAAAAQAAAADAP//AAAAAAQAAAAFAAEAAAAAAAIAAAAFAAAAAAAAAAIAAAAFAP//AAAAAAQAAAAEAP//AAAAAAQAAAADAP7/AAAAAAMAAAACAP7/AAAAAAMAAAADAP3/AAAAAAMAAAAEAP3/AAAAAAIAAAAEAP7/AAAAAAQAAAAFAP7/AAAAAAQAAAAFAP3/AAAAAAIAAAAEAPz/AAAAAAMAAAAFAPz/AAAAAAIAAAAEAAMAAAAAAAMAAAAFAAIAAAAAAAIAAAAEAAQAAAAAAAMAAAAFAAMAAAAAAAIAAAAFAAQAAAAAAAMAAAAAAP//AAAAAAMAAAACAP3/AAAAAAMAAAADAPz/AAAAAAMAAAAEAPv/AAAAAAMAAAABAP7/AAAAAAMAAAAFAPv/AAAAAAMAAAAFAPr/AAAAAAMAAAAGAAMAAAAAAAIAAAAHAAIAAAAAAAIAAAAIAAEAAAAAAAIAAAAJAAAAAAAAAAIAAAAIAAAAAAAAAAIAAAAIAP//AAAAAAIAAAAHAP//AAAAAAIAAAAHAP7/AAAAAAIAAAAGAP7/AAAAAAIAAAAGAP3/AAAAAAIAAAAHAAAAAAAAAAIAAAAGAP//AAAAAAIAAAAGAAAAAAAAAAIAAAAGAAIAAAAAAAIAAAAKAP//AAAAAAMAAAAJAP//AAAAAAIAAAAJAP7/AAAAAAIAAAAIAP7/AAAAAAIAAAAIAP3/AAAAAAIAAAAHAP3/AAAAAAIAAAAHAPz/AAAAAAIAAAAGAPz/AAAAAAIAAAAGAPv/AAAAAAIAAAAGAPr/AAAAAAMAAAAHAPv/AAAAAAMAAAAIAPz/AAAAAAMAAAAJAP3/AAAAAAMAAAAKAP7/AAAAAAMAAAAFAAUAAAAAAAMAAAAGAAQAAAAAAAMAAAAHAAMAAAAAAAMAAAAIAAIAAAAAAAIAAAAJAAEAAAAAAAIAAAAKAAAAAAAAAAMAAAALAP//AAAAAAMAAAAGAAUAAAAAAAMAAAAHAAQAAAAAAAMAAAAIAAMAAAAAAAMAAAAJAAIAAAAAAAMAAAAKAAEAAAAAAAMAAAALAAAAAAAAAAMAAAAGAAYAAAAAAAMAAAAHAAUAAAAAAAMAAAAIAAQAAAAAAAMAAAAJAAMAAAAAAAMAAAAKAAIAAAAAAAMAAAALAAEAAAAAAAMAAAAMAAEAAAAAAAMAAAAMAAAAAAAAAAMAAAAGAPn/AAAAAAMAAAAHAPn/AAAAAAMAAAAHAPr/AAAAAAMAAAAIAPr/AAAAAAMAAAAIAPv/AAAAAAMAAAAJAPv/AAAAAAMAAAAJAPz/AAAAAAMAAAAKAPz/AAAAAAMAAAAKAP3/AAAAAAMAAAALAP3/AAAAAAMAAAALAP7/AAAAAAMAAAAMAP7/AAAAAAMAAAAMAP//AAAAAAMAAAANAP//AAAAAAMAAAANAAAAAAAAAAMAAAALAAIAAAAAAAMAAAAKAAMAAAAAAAMAAAAJAAQAAAAAAAMAAAAIAAUAAAAAAAMAAAAHAAYAAAAAAAMAAAAGAAEAAAAAAAIAAAAHAAEAAAAAAAIAAAA=")
+tile_set = SubResource("TileSet_p57ef")
+script = ExtResource("4_iywne")
+
+[node name="MovementOverlay" type="TileMapLayer" parent="."]
+y_sort_enabled = true
+tile_set = SubResource("TileSet_gee14")
+script = ExtResource("5_gee14")
+
+[node name="Units" type="Node2D" parent="."]
+
+[node name="Character" parent="Units" instance=ExtResource("2_yqjtg")]
+position = Vector2(33, 33)
+def = ExtResource("5_iywne")
+
+[node name="Camera2D" type="Camera2D" parent="Units/Character"]
+position = Vector2(-17, -1)
+
+[node name="CoordinatesLabel" type="Label" parent="Units/Character/Camera2D"]
+anchors_preset = -1
+offset_left = -154.0
+offset_top = -114.0
+offset_right = -93.0
+offset_bottom = -91.0
+size_flags_horizontal = 3
+text = "null"

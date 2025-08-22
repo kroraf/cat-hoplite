@@ -1,0 +1,62 @@
+[gd_scene load_steps=9 format=4 uid="uid://5iieinnysufo"]
+
+[ext_resource type="Script" uid="uid://bu1qupn4eegvq" path="res://scenes/game.gd" id="1_lnu2h"]
+[ext_resource type="Shader" uid="uid://yikwdognvexr" path="res://shader/tile.gdshader" id="2_iywne"]
+[ext_resource type="Texture2D" uid="uid://0atf2jcjj0wl" path="res://resources/Tile/Tileset1.png" id="2_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://c3l8pmja4i8j4" path="res://scenes/char.tscn" id="2_yqjtg"]
+[ext_resource type="Script" uid="uid://bmn6wvbh1vvww" path="res://scripts/local_hex_grid.gd" id="4_iywne"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p57ef"]
+shader = ExtResource("2_iywne")
+shader_parameter/hover_cell = Vector2(-1, -1)
+shader_parameter/hover_color = Color(1.2, 1.2, 1.2, 1)
+shader_parameter/tile_size = Vector2(16, 16)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iywne"]
+texture = ExtResource("2_lbhrr")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -3)
+0:1/0 = 0
+0:1/0/texture_origin = Vector2i(0, -3)
+0:2/0 = 0
+0:2/0/texture_origin = Vector2i(0, -3)
+0:3/0 = 0
+0:3/0/texture_origin = Vector2i(0, -3)
+0:4/0 = 0
+0:4/0/texture_origin = Vector2i(0, -3)
+0:5/0 = 0
+0:5/0/texture_origin = Vector2i(0, -3)
+0:6/0 = 0
+0:6/0/texture_origin = Vector2i(0, -3)
+0:7/0 = 0
+0:7/0/texture_origin = Vector2i(0, -3)
+
+[sub_resource type="TileSet" id="TileSet_p57ef"]
+tile_shape = 3
+tile_layout = 2
+tile_size = Vector2i(32, 22)
+sources/0 = SubResource("TileSetAtlasSource_iywne")
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_lnu2h")
+
+[node name="LocalHexGrid" type="TileMapLayer" parent="."]
+material = SubResource("ShaderMaterial_p57ef")
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAMAAAABAAAAAAAAAAMAAAACAAAAAAAAAAMAAAADAAAAAAAAAAMAAAADAAEAAAAAAAMAAAACAAEAAAAAAAMAAAABAAEAAAAAAAMAAAAAAAEAAAAAAAMAAAD//wEAAAAAAAMAAAAAAAIAAAAAAAMAAAABAAIAAAAAAAMAAAACAAIAAAAAAAMAAAADAAIAAAAAAAMAAAAEAAIAAAAAAAMAAAADAAMAAAAAAAMAAAACAAQAAAAAAAMAAAACAAMAAAAAAAMAAAABAP//AAAAAAMAAAACAP//AAAAAAMAAAAEAAEAAAAAAAMAAAABAAMAAAAAAAMAAAD//wIAAAAAAAMAAAD//wMAAAAAAAMAAAAAAAMAAAAAAAMAAAAAAAQAAAAAAAMAAAABAAQAAAAAAAMAAAAEAAAAAAAAAAMAAAADAP//AAAAAAMAAAA=")
+tile_set = SubResource("TileSet_p57ef")
+script = ExtResource("4_iywne")
+
+[node name="Character" parent="." instance=ExtResource("2_yqjtg")]
+position = Vector2(64, 17)
+
+[node name="Camera2D" type="Camera2D" parent="Character"]
+position = Vector2(-17, -1)
+
+[node name="CoordinatesLabel" type="Label" parent="Character/Camera2D"]
+offset_left = -154.0
+offset_top = -114.0
+offset_right = -93.0
+offset_bottom = -91.0
+size_flags_horizontal = 3
+text = "null"

@@ -1,0 +1,48 @@
+[gd_resource type="Resource" script_class="UnitDefinition" load_steps=10 format=3 uid="uid://35j86kr2rrnt"]
+
+[ext_resource type="SpriteFrames" uid="uid://m5s7b2txfr8e" path="res://resources/Unit/Characters/cat_spriteframes.tres" id="1_j2nbu"]
+[ext_resource type="Script" uid="uid://r6pn0sjb3vqc" path="res://resources/Definitions/action_def.gd" id="2_saly5"]
+[ext_resource type="Script" uid="uid://guvf67wxxfbp" path="res://resources/Definitions/unit_def.gd" id="3_vd73s"]
+
+[sub_resource type="Resource" id="Resource_w1jfe"]
+script = ExtResource("2_saly5")
+block_mode = 1
+end_point = Vector2i(1, 0)
+metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
+
+[sub_resource type="Resource" id="Resource_xvi7v"]
+script = ExtResource("2_saly5")
+block_mode = 1
+end_point = Vector2i(0, -1)
+metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
+
+[sub_resource type="Resource" id="Resource_sfsw6"]
+script = ExtResource("2_saly5")
+block_mode = 1
+end_point = Vector2i(1, -1)
+metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
+
+[sub_resource type="Resource" id="Resource_h3j2l"]
+script = ExtResource("2_saly5")
+block_mode = 1
+end_point = Vector2i(-1, 0)
+metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
+
+[sub_resource type="Resource" id="Resource_j2nbu"]
+script = ExtResource("2_saly5")
+block_mode = 1
+end_point = Vector2i(0, 1)
+metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
+
+[sub_resource type="Resource" id="Resource_saly5"]
+script = ExtResource("2_saly5")
+block_mode = 1
+end_point = Vector2i(-1, 1)
+metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
+
+[resource]
+script = ExtResource("3_vd73s")
+name = "Cat"
+frames = ExtResource("1_j2nbu")
+hp = 5
+move_def = Array[ExtResource("2_saly5")]([SubResource("Resource_w1jfe"), SubResource("Resource_xvi7v"), SubResource("Resource_sfsw6"), SubResource("Resource_h3j2l"), SubResource("Resource_j2nbu"), SubResource("Resource_saly5")])

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="UnitDefinition" load_steps=4 format=3 uid="uid://bnjhpxj5lsncg"]
+
+[ext_resource type="Script" uid="uid://guvf67wxxfbp" path="res://resources/Definitions/unit_def.gd" id="1_avr8q"]
+[ext_resource type="SpriteFrames" uid="uid://m5s7b2txfr8e" path="res://resources/Unit/Characters/cat_spriteframes.tres" id="1_jiowd"]
+[ext_resource type="Script" uid="uid://r6pn0sjb3vqc" path="res://resources/Definitions/action_def.gd" id="2_c4eyt"]
+
+[resource]
+script = ExtResource("1_avr8q")
+name = "Enemy"
+type = 1
+frames = ExtResource("1_jiowd")

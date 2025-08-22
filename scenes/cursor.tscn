@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://jc8gtx6jittt"]
+
+[ext_resource type="Script" uid="uid://ckoajakv28jjr" path="res://scripts/cursor.gd" id="1_1eco6"]
+[ext_resource type="Texture2D" uid="uid://dr51i5n6ce0a0" path="res://resources/Tile/TilesetHighlight.png" id="2_s0nli"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s0nli"]
+atlas = ExtResource("2_s0nli")
+region = Rect2(0, 8, 32, 24)
+
+[node name="Cursor" type="Node2D"]
+script = ExtResource("1_1eco6")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_s0nli")
