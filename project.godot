@@ -19,6 +19,8 @@ config/icon="res://icon.svg"
 
 EventBus="*res://globals/event_bus.gd"
 Navigation="*res://globals/navigation.gd"
+OccupancyManager="*res://globals/occupancy_manager.gd"
+MeleeAiController="*res://scripts/melee_ai_controller.gd"
 
 [display]
 

@@ -1,19 +1,21 @@
 class_name Character
 extends Area2D
 
-var current_grid_position: Vector2i
+var grid_position: Vector2i:
+	get:
+		return Navigation.global_to_map(position)
 var movement_tween: Tween
 var current_path: Array = []
 var is_in_motion: bool = false
 
+@export var is_enemy: bool = false
 @export var def: UnitDefinition
-
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 func init():
 	sprite.sprite_frames = def.frames
-	current_grid_position = Navigation.global_to_map(position)
 	position = Navigation.snap_to_tile_center(position)
+	OccupancyManager.register_character(self, grid_position)
 	sprite.play("idle")
 
 func move_along_path(path: Array) -> void:
@@ -32,13 +34,13 @@ func _start_next_move():
 		EventBus.movement_complete.emit()
 		is_in_motion = false
 		return
-	
+		
+	OccupancyManager.unregister_character(self, grid_position)
 	# Start continuous animation if not already playing
 	if sprite.animation != "run":
 		sprite.play("run")
-	
 	var next_cell = current_path[0]
-	var move_dir = next_cell - current_grid_position
+	var move_dir = Vector2i(next_cell) - grid_position
 	sprite.flip_h = move_dir.x < 0 || (move_dir.x >= 0 && move_dir.y > 0)
 	
 	# Create smooth movement
@@ -46,16 +48,15 @@ func _start_next_move():
 		movement_tween.kill()
 	
 	movement_tween = create_tween()
+	movement_tween.connect("finished", _on_move_step_complete)
 	movement_tween.tween_property(
 		self, 
 		'global_position', 
 		Navigation.map_to_global(next_cell), 
-		0.2
+		1.5
 	).set_trans(Tween.TRANS_LINEAR)
-	
-	movement_tween.connect("finished", _on_move_step_complete)
 	current_path.remove_at(0)
 
 func _on_move_step_complete():
-	current_grid_position = Navigation.global_to_map(global_position)
-	_start_next_move()
+		OccupancyManager.register_character(self, grid_position)
+		_start_next_move()
