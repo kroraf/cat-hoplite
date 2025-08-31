@@ -7,12 +7,12 @@ func initialize(nav_system: Node) -> void:
 	navigation = nav_system
 
 func register_character(character: Character, cell: Vector2i) -> void:
-	print("Registering ", character.name, " at ", cell)
+	#print("Registering ", character.name, " at ", cell)
 	occupied_tiles[cell] = character
 	navigation.update_obstacle(cell, true)
 
 func unregister_character(character: Character, cell: Vector2i) -> void:
-	print("Unregistering ", character.name, " from ", cell)
+	#print("Unregistering ", character.name, " from ", cell)
 	if occupied_tiles.get(cell) == character:
 		occupied_tiles.erase(cell)
 		navigation.update_obstacle(cell, false)

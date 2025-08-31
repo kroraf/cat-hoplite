@@ -27,7 +27,6 @@ func init(all_layers: Array) -> void:
 				
 func update_obstacle(cell: Vector2i, occupied: bool) -> void:
 	var id = point_to_id(cell)
-	#print("dynamic_obstacles", dynamic_obstacles)
 	if occupied:
 		# Add to dynamic obstacles and disable point
 		dynamic_obstacles[cell] = true
@@ -108,6 +107,7 @@ func _is_cell_walkable(cell: Vector2i) -> bool:
 	)
 	
 func find_nearest_available_cell(target_cell: Vector2i, max_distance: int = 2) -> Vector2i:
+	var hex_ring := []
 	# If the target cell is walkable, return it
 	if _is_cell_walkable(target_cell):
 		return target_cell
@@ -116,6 +116,7 @@ func find_nearest_available_cell(target_cell: Vector2i, max_distance: int = 2) -
 	for dir in hex_directions:
 		var neighbor_cell = target_cell + dir
 		if _is_cell_walkable(neighbor_cell):
+			hex_ring.append(neighbor_cell)
 			return neighbor_cell
 	
 	# If no immediate neighbors, check distance 2
@@ -139,3 +140,45 @@ func _get_ring_around_cell(center: Vector2i, radius: int) -> Array[Vector2i]:
 			current += hex_directions[i]
 	
 	return ring_cells
+
+func hex_distance(a: Vector2, b: Vector2) -> int:
+	var dq = int(a.x - b.x)
+	var dr = int(a.y - b.y)
+	return int((abs(dq) + abs(dr) + abs(dq + dr)) / 2)
+
+func find_all_available_adjacent_cells(target_cell: Vector2i) -> Array[Vector2i]:
+	var available_cells: Array[Vector2i] = []
+	
+	# Check all adjacent cells
+	for dir in hex_directions:
+		var adjacent_cell = target_cell + dir
+		if _is_cell_walkable(adjacent_cell):
+			available_cells.append(adjacent_cell)
+	
+	return available_cells
+
+func find_optimal_approach_cell_and_path(target_cell: Vector2i, unit_cell: Vector2i) -> Dictionary:
+	var adjacent_cells = find_all_available_adjacent_cells(target_cell)
+	
+	if adjacent_cells.is_empty():
+		# Fallback: use nearest available cell
+		var fallback_cell = find_nearest_available_cell(target_cell, 3)
+		var fallback_path = get_movement_path(unit_cell, fallback_cell)
+		return {"cell": fallback_cell, "path": fallback_path}
+	
+	var best_cell = adjacent_cells[0]
+	var best_path = get_movement_path(unit_cell, best_cell)
+	var shortest_path_length = best_path.size() - 1 if best_path.size() > 0 else 9999
+	
+	# Check other adjacent cells for shorter paths
+	for i in range(1, adjacent_cells.size()):
+		var cell = adjacent_cells[i]
+		var path = get_movement_path(unit_cell, cell)
+		var path_length = path.size() - 1 if path.size() > 0 else 9999
+		
+		if path_length < shortest_path_length and path.size() > 0:
+			shortest_path_length = path_length
+			best_cell = cell
+			best_path = path
+	
+	return {"cell": best_cell, "path": best_path}

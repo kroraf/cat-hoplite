@@ -5,16 +5,6 @@ extends TileMapLayer
 var last_hovered_cell := Vector2i(-1, -1)
 var original_tiles := {}  # Dictionary to store original tile data
 
-#func _process(_delta):
-	#var mouse_pos = get_local_mouse_position()
-	#var hovered_cell = local_to_map(mouse_pos)
-	#
-	#if hovered_cell != last_hovered_cell:
-		#restore_original_tile(last_hovered_cell)
-		#highlight_cell(hovered_cell)
-		#last_hovered_cell = hovered_cell
-
-# Public method to highlight a specific cell
 func highlight_cell(cell: Vector2i) -> void:
 	if get_cell_source_id(cell) != -1:
 		# Backup original tile

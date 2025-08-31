@@ -3,4 +3,5 @@
 /android/
 *.import/
 *.import
+*.tmp
 export.cfg
