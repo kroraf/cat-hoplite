@@ -54,7 +54,6 @@ func _get_path_to_player() -> PackedVector2Array:
 	return result.path
 
 func _execute_move() -> void:
-	await AnimationManager.wait_for_all()
 	var path = _get_path_to_player()
 	
 	if path.size() > 1:
@@ -64,7 +63,10 @@ func _execute_move() -> void:
 			var move_path: Array[Vector2i] = [unit.grid_position, next_cell]
 			
 			print(unit.name, " moving to: ", next_cell)
-			unit.move_along_path(move_path)
+			var move_cmd = MoveCommand.new(unit, move_path)
+			move_cmd.name = "Enmy mov"
+			EventBus.post_command.emit(move_cmd)
+			#unit.move_along_path(move_path)
 			# Don't call _on_move_complete here - let the movement complete signal handle it
 		else:
 			print("Cell not walkable, ending turn")

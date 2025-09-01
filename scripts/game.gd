@@ -35,12 +35,15 @@ func _unhandled_input(event: InputEvent):
 		EventBus.cursor_accept_pressed.emit(hexgrid.local_to_map(get_global_mouse_position()))
 	elif event.is_action_pressed("left_mouse_button"):
 		# Only process clicks if it's player's turn and not busy
-		if unit_manager.is_player_turn() and not unit_manager.is_animation_playing():
+		if unit_manager.is_player_turn() and not unit_manager.is_animation_playing:
 			EventBus.cursor_accept_pressed.emit(hexgrid.local_to_map(get_global_mouse_position()))
 			var actual_current_unit = unit_manager.get_current_unit()
 			var movement_path = Navigation.get_movement_path(actual_current_unit.grid_position, cursor_cell_position)
 			if not actual_current_unit.is_in_motion and cursor_cell_position in Navigation.get_walkable_cells(actual_current_unit):
-				move_unit_to_cell(actual_current_unit, movement_path)
+				#move_unit_to_cell(actual_current_unit, movement_path)
+				var move_cmd = MoveCommand.new(actual_current_unit, movement_path)
+				move_cmd.name = "Plr mov"
+				EventBus.post_command.emit(move_cmd)
 #
 func _on_cursor_accept_pressed(cursor_cell):
 	coordinates_label.text = str(cursor_cell)
@@ -77,16 +80,13 @@ func _on_turn_started():
 	
 func _update_end_turn_button():
 	var is_player_turn = unit_manager.is_player_turn()
-	var is_busy = unit_manager.is_animation_playing()
+	var is_busy = unit_manager.is_animation_playing
 	
 	end_turn_button.visible = is_player_turn
 	end_turn_button.disabled = is_busy or not is_player_turn
 	
 func _on_action_started(unit):
-	print("_on_action_started")
 	movement_overlay.clear_all_highlights()
 	
 func _on_action_complete(unit):
-	pass
-	print("_on_action_complete")
 	update_movement_overlay(current_unit)

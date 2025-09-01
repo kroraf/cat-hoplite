@@ -9,3 +9,5 @@ signal turn_started
 signal unit_died(unit)
 signal action_started(unit)
 signal action_complete(unit)
+signal post_command(cmd)
+signal execute_next_command

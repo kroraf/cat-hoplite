@@ -30,7 +30,6 @@ func move_along_path(path: Array) -> void:
 		is_in_motion = false
 		return
 	
-	AnimationManager.register(self)
 	EventBus.movement_started.emit()
 	is_in_motion = true
 	current_path = path.slice(1)
@@ -57,7 +56,7 @@ func _start_next_move():
 		self, 
 		'global_position', 
 		Navigation.map_to_global(next_cell), 
-		.3
+		.5
 	).set_trans(Tween.TRANS_LINEAR)
 	#await movement_tween.finished
 
@@ -73,11 +72,16 @@ func scan_for_enemies_and_attack():
 		if occupant and occupant != self and occupant.is_enemy != self.is_enemy:
 			enemies_in_range.append(occupant)
 	print("Enemies in range: ", enemies_in_range)
-	for unit in enemies_in_range:
-		print("> ", self.name, " attacks ", unit.name)
-		await _play_attack_animation()
-		unit.take_damage(1)
+	for target in enemies_in_range:
+		var attack_cmd = AttackCommand.new(self, target)
+		attack_cmd.name = "{0} attk".format([self.name])
+		EventBus.post_command.emit(attack_cmd)
 	EventBus.action_complete.emit(self)
+	
+func attack(target: Character):
+	print("> ", self.name, " attacks ", target.name)
+	await _play_attack_animation()
+	target.take_damage(1)
 	
 func _get_actionable_cells() -> Array[Vector2i]:
 	var cells: Array[Vector2i] = []
@@ -107,19 +111,19 @@ func _on_movement_complete(unit_that_moved):
 	sprite.play("idle")
 	is_in_motion = false
 	OccupancyManager.register_character(self, grid_position)
-	AnimationManager.unregister(unit_that_moved)
 	await scan_for_enemies_and_attack()
 	await get_tree().create_timer(0.1).timeout
-	AnimationManager.wait_for_all()
 	decrease_ap(1)
 	_evaluate_ap()
 	
 func take_damage(value):
-	print(self.name, ": OUCH!")
 	_play_hit_animation()
 	current_hp -= value
 	if current_hp <= 0:
-		self.die()
+		var die_cmd = DieCommand.new(self)
+		die_cmd.name = "Die"
+		EventBus.post_command.emit(die_cmd)
+		#self.die()
 	
 func die():
 	print(self.name, " DIES!")
@@ -128,16 +132,12 @@ func die():
 	await _play_death_animation()
 	EventBus.unit_died.emit(self)
 	queue_free()
-	#await get_tree().create_timer(1).timeout
-	#EventBus.end_turn.emit()
 	
 func _play_run_animation():
 	if sprite.animation != "run":
 		sprite.play("run")
 
 func _play_death_animation() -> void:
-	print("playing death animation for ", self)
-	AnimationManager.register(self)
 	if sprite.sprite_frames.has_animation("die"):
 		sprite.play("die")
 		await sprite.animation_finished
@@ -145,17 +145,9 @@ func _play_death_animation() -> void:
 		var tween = create_tween()
 		tween.tween_property(self, "modulate:a", 0.0, 0.3)
 		await tween.finished
-	print("death animation for ", self, "is finally done!")
-	AnimationManager.unregister(self)
 	
 func _play_attack_animation():
 	print("playing attack animation for ", self)
-	AnimationManager.register(self)
-	# Face the target
-	#var direction = target.global_position - global_position
-	#sprite.flip_h = direction.x < 0
-	
-	# Play attack animation
 	if sprite.sprite_frames.has_animation("attack"):
 		sprite.play("attack")
 		await sprite.animation_finished
@@ -166,11 +158,9 @@ func _play_attack_animation():
 		tween.tween_property(sprite, "scale", Vector2(1.2, 1.2), 0.1)
 		tween.tween_property(sprite, "scale", Vector2(1.0, 1.0), 0.1)
 		await tween.finished
-	AnimationManager.unregister(self)
 	
 func _play_hit_animation():
 	print("playing hit animation for ", self)
-	AnimationManager.register(self)
 	if sprite.sprite_frames.has_animation("hit"):
 		sprite.play("hit")
 		await sprite.animation_finished
@@ -198,4 +188,3 @@ func _play_hit_animation():
 		tween.tween_property(self, "modulate", original_modulate, 0.08)
 		tween.tween_property(self, "scale", original_scale, 0.08)
 		await tween.finished
-	AnimationManager.unregister(self)

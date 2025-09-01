@@ -1,8 +1,8 @@
 [gd_scene load_steps=15 format=4 uid="uid://5iieinnysufo"]
 
 [ext_resource type="Script" uid="uid://bu1qupn4eegvq" path="res://scripts/game.gd" id="1_lnu2h"]
-[ext_resource type="Texture2D" uid="uid://0atf2jcjj0wl" path="res://resources/Tile/Tileset1.png" id="2_lbhrr"]
-[ext_resource type="Texture2D" uid="uid://dr51i5n6ce0a0" path="res://resources/Tile/TilesetHighlight.png" id="2_p57ef"]
+[ext_resource type="Texture2D" uid="uid://wwle1wbftx70" path="res://resources/Tile/Tileset1.png" id="2_lbhrr"]
+[ext_resource type="Texture2D" uid="uid://drjfe3krkf6f8" path="res://resources/Tile/TilesetHighlight.png" id="2_p57ef"]
 [ext_resource type="PackedScene" uid="uid://c3l8pmja4i8j4" path="res://scenes/unit.tscn" id="2_yqjtg"]
 [ext_resource type="Script" uid="uid://bmn6wvbh1vvww" path="res://scripts/grid.gd" id="4_iywne"]
 [ext_resource type="Script" uid="uid://dafl8ygf45pcm" path="res://scripts/movement_overlay.gd" id="5_gee14"]
@@ -112,17 +112,7 @@ is_enemy = true
 def = ExtResource("9_0tnpc")
 
 [node name="Enemy2" parent="UnitManager/Group2" instance=ExtResource("2_yqjtg")]
-position = Vector2(113, 42)
-is_enemy = true
-def = ExtResource("9_0tnpc")
-
-[node name="Enemy3" parent="UnitManager/Group2" instance=ExtResource("2_yqjtg")]
-position = Vector2(129, -9)
-is_enemy = true
-def = ExtResource("9_0tnpc")
-
-[node name="Enemy4" parent="UnitManager/Group2" instance=ExtResource("2_yqjtg")]
-position = Vector2(13, 11)
+position = Vector2(187, 25)
 is_enemy = true
 def = ExtResource("9_0tnpc")
 
