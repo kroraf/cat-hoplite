@@ -1,7 +1,7 @@
 [gd_resource type="SpriteFrames" load_steps=33 format=3 uid="uid://bhttsfpi2y6cx"]
 
-[ext_resource type="Texture2D" uid="uid://dnooel2krdimx" path="res://resources/Unit/Characters/Idle.png" id="1_a6cj2"]
-[ext_resource type="Texture2D" uid="uid://dhp41xmop303q" path="res://resources/Unit/Characters/attack 1.png" id="1_lglrk"]
+[ext_resource type="Texture2D" uid="uid://80pg62c00ue2" path="res://resources/Unit/Characters/Idle.png" id="1_a6cj2"]
+[ext_resource type="Texture2D" uid="uid://cn34jvvv06hv5" path="res://resources/Unit/Characters/attack 1.png" id="1_lglrk"]
 [ext_resource type="Texture2D" uid="uid://b0ncdjkhcsafh" path="res://resources/Unit/Characters/Run.png" id="2_cbx2o"]
 [ext_resource type="Texture2D" uid="uid://cmypjsjty3681" path="res://resources/Unit/Characters/Damaged_Death.png" id="2_u27xf"]
 

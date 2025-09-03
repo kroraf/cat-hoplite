@@ -56,7 +56,7 @@ func _start_next_move():
 		self, 
 		'global_position', 
 		Navigation.map_to_global(next_cell), 
-		.5
+		.3
 	).set_trans(Tween.TRANS_LINEAR)
 	#await movement_tween.finished
 
@@ -132,6 +132,7 @@ func die():
 	await _play_death_animation()
 	EventBus.unit_died.emit(self)
 	queue_free()
+	EventBus.action_complete.emit(self)
 	
 func _play_run_animation():
 	if sprite.animation != "run":

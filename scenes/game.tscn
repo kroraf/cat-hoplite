@@ -1,8 +1,8 @@
-[gd_scene load_steps=15 format=4 uid="uid://5iieinnysufo"]
+[gd_scene load_steps=16 format=4 uid="uid://5iieinnysufo"]
 
 [ext_resource type="Script" uid="uid://bu1qupn4eegvq" path="res://scripts/game.gd" id="1_lnu2h"]
-[ext_resource type="Texture2D" uid="uid://wwle1wbftx70" path="res://resources/Tile/Tileset1.png" id="2_lbhrr"]
-[ext_resource type="Texture2D" uid="uid://drjfe3krkf6f8" path="res://resources/Tile/TilesetHighlight.png" id="2_p57ef"]
+[ext_resource type="Texture2D" uid="uid://0atf2jcjj0wl" path="res://resources/Tile/Tileset1.png" id="2_lbhrr"]
+[ext_resource type="Texture2D" uid="uid://dr51i5n6ce0a0" path="res://resources/Tile/TilesetHighlight.png" id="2_p57ef"]
 [ext_resource type="PackedScene" uid="uid://c3l8pmja4i8j4" path="res://scenes/unit.tscn" id="2_yqjtg"]
 [ext_resource type="Script" uid="uid://bmn6wvbh1vvww" path="res://scripts/grid.gd" id="4_iywne"]
 [ext_resource type="Script" uid="uid://dafl8ygf45pcm" path="res://scripts/movement_overlay.gd" id="5_gee14"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://c41bfw5lpie3k" path="res://scenes/unit_manager.tscn" id="7_vtaks"]
 [ext_resource type="PackedScene" uid="uid://jc8gtx6jittt" path="res://scenes/cursor.tscn" id="8_gee14"]
 [ext_resource type="Resource" uid="uid://bnjhpxj5lsncg" path="res://resources/Definitions/enemy.tres" id="9_0tnpc"]
+[ext_resource type="PackedScene" uid="uid://deoacneqlhr7m" path="res://scenes/camera.tscn" id="11_kvpfn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iywne"]
 texture = ExtResource("2_lbhrr")
@@ -82,38 +83,32 @@ script = ExtResource("5_gee14")
 [node name="Group1" type="Node" parent="UnitManager"]
 
 [node name="Player" parent="UnitManager/Group1" instance=ExtResource("2_yqjtg")]
-position = Vector2(79, 9)
+position = Vector2(126, 127)
 def = ExtResource("5_iywne")
-
-[node name="Camera" type="Camera2D" parent="UnitManager/Group1/Player"]
-unique_name_in_owner = true
-position = Vector2(-17, -1)
-
-[node name="CoordinatesLabel" type="Label" parent="UnitManager/Group1/Player/Camera"]
-offset_left = -154.0
-offset_top = -114.0
-offset_right = -93.0
-offset_bottom = -91.0
-size_flags_horizontal = 3
-text = "null"
-
-[node name="EndTurnButton" type="Button" parent="UnitManager/Group1/Player/Camera"]
-offset_left = -155.0
-offset_top = 83.0
-offset_right = -65.0
-offset_bottom = 114.0
-text = "END TURN"
 
 [node name="Group2" type="Node" parent="UnitManager"]
 
 [node name="Enemy" parent="UnitManager/Group2" instance=ExtResource("2_yqjtg")]
-position = Vector2(187, 25)
+position = Vector2(161, 93)
 is_enemy = true
 def = ExtResource("9_0tnpc")
 
 [node name="Enemy2" parent="UnitManager/Group2" instance=ExtResource("2_yqjtg")]
-position = Vector2(187, 25)
+position = Vector2(210, 113)
 is_enemy = true
 def = ExtResource("9_0tnpc")
 
-[connection signal="pressed" from="UnitManager/Group1/Player/Camera/EndTurnButton" to="." method="_on_end_turn_button_pressed"]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+offset_left = 5.0
+offset_top = 3.0
+offset_right = 79.0
+offset_bottom = 34.0
+disabled = true
+text = "FOOBAR"
+
+[node name="Camera" parent="." node_paths=PackedStringArray("target_node") instance=ExtResource("11_kvpfn")]
+position = Vector2(109, 126)
+target_node = NodePath("../UnitManager/Group1/Player")
+follow_speed = 3.0

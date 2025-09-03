@@ -14,9 +14,9 @@ var cursor_cell_position: Vector2i = Vector2i.ZERO:
 		else:
 			sprite.show()
 		position = Navigation.map_to_global(cell)
-		moved.emit(cell)
+		#moved.emit(cell)
 
-signal moved(cursor_cell: Vector2i)
+#signal moved(cursor_cell: Vector2i)
 
 func _unhandled_input(event: InputEvent):
 	if event is InputEventMouseMotion:
