@@ -1,10 +1,13 @@
 extends TileMapLayer
 
 # Configuration
-@export var highlight_atlas_coords := Vector2i(0, 0)  # Pre-made highlight tile position
+var gray_hex_atlas_coords := Vector2i(0, 0)
+var yellow_hex_atlas_coords := Vector2i(0, 1)
 var original_tiles := {}  # Dictionary to store original tile data
 
-# Public method to highlight a specific cell
+func _ready():
+	modulate = Color(0.6, 0.5, 0.8, 0.7)
+
 func highlight_cell(cell: Vector2i) -> void:
 	# Backup original tile
 	original_tiles[cell] = {
@@ -12,7 +15,7 @@ func highlight_cell(cell: Vector2i) -> void:
 		"atlas_coords": get_cell_atlas_coords(cell)
 	}
 	# Apply highlight tile
-	set_cell(cell, 0, highlight_atlas_coords, 0)
+	set_cell(cell, 1, gray_hex_atlas_coords, 0)
 
 # Public method to restore a cell to its original state
 func restore_original_tile(cell: Vector2i) -> void:

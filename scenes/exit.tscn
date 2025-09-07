@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://cw8vwmp8175bk"]
+
+[ext_resource type="Texture2D" uid="uid://dgr32qhkgjsk3" path="res://resources/Elements/Elements.png" id="1_l0aq0"]
+[ext_resource type="Script" uid="uid://dlpa8gwv010yg" path="res://scripts/exit.gd" id="1_uyw7u"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uyw7u"]
+atlas = ExtResource("1_l0aq0")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l5n14"]
+atlas = SubResource("AtlasTexture_uyw7u")
+
+[node name="Exit" type="Node2D"]
+script = ExtResource("1_uyw7u")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_l5n14")
+offset = Vector2(1, -5)

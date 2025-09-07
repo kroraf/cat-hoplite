@@ -1,6 +1,8 @@
 class_name Character
 extends Area2D
 
+const interactable: bool = false
+
 var grid_position: Vector2i:
 	get:
 		return Navigation.global_to_map(position)
@@ -20,10 +22,12 @@ func init():
 	EventBus.movement_complete.connect(_on_movement_complete)
 	sprite.sprite_frames = def.frames
 	position = Navigation.snap_to_tile_center(position)
-	OccupancyManager.register_character(self, grid_position)
+	OccupancyManager.register_object(self, grid_position)
 	sprite.play("idle")
 	current_ap = def.action_points
 	current_hp = def.hp
+	if not is_enemy:
+		EventBus.player_hp_changed.emit(current_hp)
 
 func move_along_path(path: Array) -> void:
 	if path.size() <= 1:
@@ -40,7 +44,7 @@ func _start_next_move():
 		EventBus.movement_complete.emit(self)
 		return
 		
-	OccupancyManager.unregister_character(self, grid_position)
+	OccupancyManager.unregister_object(self, grid_position)
 
 	var next_cell = current_path[0]
 	var move_dir = Vector2i(next_cell) - grid_position
@@ -61,7 +65,7 @@ func _start_next_move():
 	#await movement_tween.finished
 
 func _on_move_animation_complete():
-	OccupancyManager.register_character(self, Navigation.global_to_map(position))
+	OccupancyManager.register_object(self, Navigation.global_to_map(position))
 	_start_next_move()
 	
 func scan_for_enemies_and_attack():
@@ -69,7 +73,7 @@ func scan_for_enemies_and_attack():
 	var enemies_in_range: Array[Character] = []
 	for cell in _get_actionable_cells():
 		var occupant = OccupancyManager.get_occupant(cell)
-		if occupant and occupant != self and occupant.is_enemy != self.is_enemy:
+		if occupant and occupant is Character and occupant != self and occupant.is_enemy != self.is_enemy:
 			enemies_in_range.append(occupant)
 	print("Enemies in range: ", enemies_in_range)
 	for target in enemies_in_range:
@@ -110,7 +114,7 @@ func _on_movement_complete(unit_that_moved):
 		return
 	sprite.play("idle")
 	is_in_motion = false
-	OccupancyManager.register_character(self, grid_position)
+	OccupancyManager.register_object(self, grid_position)
 	await scan_for_enemies_and_attack()
 	await get_tree().create_timer(0.1).timeout
 	decrease_ap(1)
@@ -119,6 +123,8 @@ func _on_movement_complete(unit_that_moved):
 func take_damage(value):
 	_play_hit_animation()
 	current_hp -= value
+	if not is_enemy:
+		EventBus.player_hp_changed.emit(current_hp)
 	if current_hp <= 0:
 		var die_cmd = DieCommand.new(self)
 		die_cmd.name = "Die"
@@ -128,7 +134,7 @@ func take_damage(value):
 func die():
 	print(self.name, " DIES!")
 	dead = true
-	OccupancyManager.unregister_character(self, grid_position)
+	OccupancyManager.unregister_object(self, grid_position)
 	await _play_death_animation()
 	EventBus.unit_died.emit(self)
 	queue_free()

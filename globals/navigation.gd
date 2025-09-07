@@ -99,6 +99,26 @@ func get_walkable_cells(unit: Character) -> Array[Vector2i]:
 			cells.append(target_cell)
 	return cells
 	
+func get_interactable_cells(unit: Character) -> Array[Vector2i]:
+	var cells: Array[Vector2i] = []
+	var interact_dirs = unit.def.move_def
+	for dir in interact_dirs:
+		var target_cell = unit.grid_position + dir.end_point
+		if _is_cell_interactable(target_cell):
+			cells.append(target_cell)
+	return cells
+
+func _is_cell_interactable(cell: Vector2i) -> bool:
+	#if map.is_cell_valid(cell):
+		#if OccupancyManager.is_tile_occupied(cell):
+			#if OccupancyManager.get_occupant().interactable:
+				#return
+	return (
+		map.is_cell_valid(cell) and
+		OccupancyManager.is_tile_occupied(cell) and
+		OccupancyManager.get_occupant(cell).interactable
+	)
+	
 func _is_cell_walkable(cell: Vector2i) -> bool:
 	return (
 		map.is_cell_valid(cell) and

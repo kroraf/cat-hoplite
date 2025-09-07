@@ -30,7 +30,7 @@ func _initialize_groups() -> void:
 
 func init_units() -> void:
 	for group in groups:
-		for unit in group.get_children():
+		for unit:Character in group.get_children():
 			unit.init()
 
 func start_battle() -> void:
@@ -64,6 +64,7 @@ func _find_next_active_unit() -> Character:
 		if current_unit_index >= groups[current_team].get_child_count():
 			current_team = (current_team + 1) % groups.size()
 			current_unit_index = 0
+			EventBus.group_round_changed.emit(groups[current_team].name)
 		
 		# Check if unit is valid and alive
 		var unit = _get_current_unit_candidate()
@@ -157,8 +158,8 @@ func _end_battle() -> void:
 # Helper function to get team from group name (if you need it)
 func _get_team_from_group_name(group_name: String) -> Team:
 	match group_name:
-		"Group1": return Team.PLAYER
-		"Group2": return Team.ENEMY
+		"Player": return Team.PLAYER
+		"Enemies": return Team.ENEMY
 		_: return Team.PLAYER
 
 func can_accept_input() -> bool:

@@ -11,3 +11,5 @@ signal action_started(unit)
 signal action_complete(unit)
 signal post_command(cmd)
 signal execute_next_command
+signal player_hp_changed(new_hp)
+signal group_round_changed(group)
