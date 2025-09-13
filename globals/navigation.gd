@@ -109,10 +109,6 @@ func get_interactable_cells(unit: Character) -> Array[Vector2i]:
 	return cells
 
 func _is_cell_interactable(cell: Vector2i) -> bool:
-	#if map.is_cell_valid(cell):
-		#if OccupancyManager.is_tile_occupied(cell):
-			#if OccupancyManager.get_occupant().interactable:
-				#return
 	return (
 		map.is_cell_valid(cell) and
 		OccupancyManager.is_tile_occupied(cell) and

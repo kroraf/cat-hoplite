@@ -17,9 +17,11 @@ var dead: bool = false
 @export var def: UnitDefinition
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
+func _ready():
+	EventBus.movement_complete.connect(_on_movement_complete)
 
 func init():
-	EventBus.movement_complete.connect(_on_movement_complete)
+	#EventBus.movement_complete.connect(_on_movement_complete)
 	sprite.sprite_frames = def.frames
 	position = Navigation.snap_to_tile_center(position)
 	OccupancyManager.register_object(self, grid_position)
@@ -74,6 +76,7 @@ func scan_for_enemies_and_attack():
 	for cell in _get_actionable_cells():
 		var occupant = OccupancyManager.get_occupant(cell)
 		if occupant and occupant is Character and occupant != self and occupant.is_enemy != self.is_enemy:
+			print("I think there is and occupant at: ", cell)
 			enemies_in_range.append(occupant)
 	print("Enemies in range: ", enemies_in_range)
 	for target in enemies_in_range:
@@ -114,7 +117,7 @@ func _on_movement_complete(unit_that_moved):
 		return
 	sprite.play("idle")
 	is_in_motion = false
-	OccupancyManager.register_object(self, grid_position)
+	#OccupancyManager.register_object(self, grid_position)
 	await scan_for_enemies_and_attack()
 	await get_tree().create_timer(0.1).timeout
 	decrease_ap(1)

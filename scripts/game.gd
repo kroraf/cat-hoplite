@@ -1,13 +1,20 @@
 extends Node2D
 
-@onready var character = $UnitManager/Player/Player
-@onready var hexgrid = $LocalHexGrid
-@onready var movement_overlay = $MovementOverlay
-@onready var unit_manager: UnitManager = $UnitManager
-@onready var exit = $Exit
+#@onready var character = $UnitManager/Player/Player
+#@onready var hexgrid = $LocalHexGrid
+@onready var level_manager: LevelManager = $LevelManager
+#@onready var unit_manager: UnitManager = $UnitManager
+@onready var unit_manager = %UnitManager
+
+@onready var overlay = $Overlay
+@onready var camera: Camera2D = $Camera
+@onready var persistent_units = $PersistentUnits
 
 var mouse_click_coordinates: Vector2i
 var first_unit: Character
+var current_level: BaseLevel
+var hexgrid: TileMapLayer
+
 
 func _ready() -> void:
 	EventBus.show_movement_field.connect(_on_show_movement_field)
@@ -17,14 +24,30 @@ func _ready() -> void:
 	EventBus.action_started.connect(_on_action_started)
 	EventBus.action_complete.connect(_on_action_complete)
 	
-	Navigation.init([hexgrid])
-	OccupancyManager.initialize(Navigation)
-	unit_manager.init_units()
+	EventBus.level_loaded.connect(_on_level_loaded)
+	EventBus.level_completed.connect(_on_level_completed)
+	EventBus.level_failed.connect(_on_level_failed)
+	
+	first_unit = persistent_units.get_node("Player")
+	
+	level_manager.load_level("res://levels/level_01.tscn")
+	
+func _on_level_loaded(level: BaseLevel):
+	#OccupancyManager.clear()
+	current_level = level
+	hexgrid = level.get_hexgrid()
+	var player_start_position = level.get_player_start_position()
+	first_unit.grid_position = player_start_position
+	first_unit.position = Navigation.map_to_global(player_start_position)
+	unit_manager.initialize_level_units(level)
+		
 	unit_manager.start_battle()
-	first_unit = unit_manager.get_current_unit()
-	exit.init()
+	
+	_setup_camera()
 
 func _unhandled_input(event: InputEvent):
+	if event.is_action_pressed("right_mouse_button"):
+		print(">>", hexgrid.local_to_map(get_global_mouse_position()))
 	if event.is_action_pressed("left_mouse_button"):
 		_select_hex(hexgrid.local_to_map(get_global_mouse_position()))
 	if event is InputEventScreenTouch:
@@ -33,6 +56,19 @@ func _unhandled_input(event: InputEvent):
 		else:
 			# Finger was lifted from the screen
 			pass
+
+func _setup_camera():
+	if current_level:
+		if first_unit:
+			# Set the camera's target to the player
+			camera.target_node = first_unit
+			# Immediately position camera on player
+			camera.global_position = first_unit.global_position
+			print("Camera target set to: ", first_unit.name)
+		else:
+			print("No player found in level")
+	else:
+		print("No current level for camera setup")
 			
 func _select_hex(hex_coordinates: Vector2i) -> void:
 	if unit_manager.is_player_turn() and CommandProcessor.is_queue_empty():
@@ -56,14 +92,22 @@ func _on_show_movement_field(unit):
 	update_movement_overlay(unit)
 	
 func update_movement_overlay(unit: Character) -> void:
-	movement_overlay.clear_all_highlights()
-	var cells = Navigation.get_walkable_cells(unit)
-	for cell in cells:
+	overlay.clear_all_highlights()
+	
+	# Highlight movement cells (walkable but not interactable)
+	var movement_cells = Navigation.get_walkable_cells(unit)
+	for cell in movement_cells:
 		if hexgrid.is_cell_valid(cell) and not hexgrid.is_cell_solid(cell):
-			movement_overlay.highlight_cell(cell)
+			overlay.highlight_movement_cell(cell)
+	
+	# Highlight interaction cells (both walkable and interactable)
+	var interaction_cells = Navigation.get_interactable_cells(unit)
+	for cell in interaction_cells:
+		if hexgrid.is_cell_valid(cell) and not hexgrid.is_cell_solid(cell):
+			overlay.highlight_interaction_cell(cell)
 		
 func _on_movement_started():
-	movement_overlay.clear_all_highlights()
+	overlay.clear_all_highlights()
 	
 func _on_movement_complete(unit):
 	if unit_manager.is_player_turn():
@@ -73,7 +117,13 @@ func _on_turn_started():
 	update_movement_overlay(unit_manager.get_current_unit())
 	
 func _on_action_started(unit):
-	movement_overlay.clear_all_highlights()
+	overlay.clear_all_highlights()
 	
 func _on_action_complete(unit):
 	update_movement_overlay(first_unit)
+
+func _on_level_completed(level: BaseLevel):
+	print("Game: Level completed - ", level.level_name)
+
+func _on_level_failed(level: BaseLevel):
+	print("Game: Level failed - ", level.level_name)

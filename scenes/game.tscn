@@ -1,72 +1,31 @@
-[gd_scene load_steps=23 format=4 uid="uid://5iieinnysufo"]
+[gd_scene load_steps=16 format=3 uid="uid://5iieinnysufo"]
 
 [ext_resource type="Script" uid="uid://bu1qupn4eegvq" path="res://scripts/game.gd" id="1_lnu2h"]
-[ext_resource type="Texture2D" uid="uid://0atf2jcjj0wl" path="res://resources/Tile/Tileset1.png" id="2_lbhrr"]
 [ext_resource type="Texture2D" uid="uid://dr51i5n6ce0a0" path="res://resources/Tile/TilesetHighlight.png" id="2_p57ef"]
-[ext_resource type="PackedScene" uid="uid://c3l8pmja4i8j4" path="res://scenes/unit.tscn" id="2_yqjtg"]
-[ext_resource type="Script" uid="uid://bmn6wvbh1vvww" path="res://scripts/grid.gd" id="4_iywne"]
-[ext_resource type="Texture2D" uid="uid://bjcxurt7r3ajr" path="res://resources/Tile/HexHighlights.png" id="5_ca42v"]
-[ext_resource type="Script" uid="uid://dafl8ygf45pcm" path="res://scripts/movement_overlay.gd" id="5_gee14"]
+[ext_resource type="PackedScene" uid="uid://c3l8pmja4i8j4" path="res://scenes/units/unit.tscn" id="2_yqjtg"]
 [ext_resource type="Resource" uid="uid://35j86kr2rrnt" path="res://resources/Definitions/cat.tres" id="5_iywne"]
+[ext_resource type="Script" uid="uid://o3l0y6mjbi35" path="res://scripts/overlay.gd" id="7_rysoc"]
 [ext_resource type="PackedScene" uid="uid://c41bfw5lpie3k" path="res://scenes/unit_manager.tscn" id="7_vtaks"]
 [ext_resource type="PackedScene" uid="uid://jc8gtx6jittt" path="res://scenes/cursor.tscn" id="8_gee14"]
-[ext_resource type="Resource" uid="uid://bnjhpxj5lsncg" path="res://resources/Definitions/enemy.tres" id="9_0tnpc"]
-[ext_resource type="PackedScene" uid="uid://cw8vwmp8175bk" path="res://scenes/exit.tscn" id="10_ir15t"]
 [ext_resource type="Texture2D" uid="uid://dg8l5rw3o2h6r" path="res://resources/UI/FreeHorrorUi.png" id="11_dinhu"]
 [ext_resource type="PackedScene" uid="uid://deoacneqlhr7m" path="res://scenes/camera.tscn" id="11_kvpfn"]
 [ext_resource type="Script" uid="uid://dee7fmuvou3dt" path="res://scripts/ui_controller.gd" id="11_kvuet"]
-[ext_resource type="Script" uid="uid://fg0yp07pbr36" path="res://scenes/health_container.gd" id="12_kvuet"]
+[ext_resource type="Script" uid="uid://fg0yp07pbr36" path="res://scripts/health_container.gd" id="12_kvuet"]
+[ext_resource type="PackedScene" uid="uid://blhusknicdo6u" path="res://scenes/level_manager.tscn" id="18_ssvqc"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iywne"]
-texture = ExtResource("2_lbhrr")
-texture_region_size = Vector2i(32, 32)
-0:0/0 = 0
-0:0/0/texture_origin = Vector2i(0, -3)
-0:1/0 = 0
-0:1/0/texture_origin = Vector2i(0, -3)
-0:1/0/custom_data_0 = true
-0:2/0 = 0
-0:2/0/texture_origin = Vector2i(0, -3)
-0:3/0 = 0
-0:3/0/texture_origin = Vector2i(0, -3)
-0:4/0 = 0
-0:4/0/texture_origin = Vector2i(0, -3)
-0:4/0/custom_data_0 = true
-0:5/0 = 0
-0:5/0/texture_origin = Vector2i(0, -3)
-0:6/0 = 0
-0:6/0/texture_origin = Vector2i(0, -3)
-0:7/0 = 0
-0:7/0/texture_origin = Vector2i(0, -3)
-
-[sub_resource type="TileSet" id="TileSet_p57ef"]
-tile_shape = 3
-tile_layout = 5
-tile_size = Vector2i(32, 22)
-custom_data_layer_0/name = "is_solid"
-custom_data_layer_0/type = 1
-sources/0 = SubResource("TileSetAtlasSource_iywne")
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u5sy4"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ssvqc"]
 texture = ExtResource("2_p57ef")
 texture_region_size = Vector2i(32, 39)
 0:0/0 = 0
+1:0/0 = 0
 0:1/0 = 0
+1:1/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rysoc"]
-texture = ExtResource("5_ca42v")
-texture_region_size = Vector2i(32, 27)
-0:0/0 = 0
-0:1/0 = 0
-
-[sub_resource type="TileSet" id="TileSet_gee14"]
+[sub_resource type="TileSet" id="TileSet_264po"]
 tile_shape = 3
 tile_layout = 5
 tile_size = Vector2i(32, 22)
-custom_data_layer_0/name = "is_solid"
-custom_data_layer_0/type = 1
-sources/0 = SubResource("TileSetAtlasSource_u5sy4")
-sources/1 = SubResource("TileSetAtlasSource_rysoc")
+sources/0 = SubResource("TileSetAtlasSource_ssvqc")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kvuet"]
 atlas = ExtResource("11_dinhu")
@@ -75,44 +34,37 @@ region = Rect2(136, 104, 16, 16)
 [node name="Game" type="Node2D"]
 script = ExtResource("1_lnu2h")
 
-[node name="LocalHexGrid" type="TileMapLayer" parent="."]
-y_sort_enabled = true
-tile_map_data = PackedByteArray("AAAEAAMAAAAAAAMAAAAFAAIAAAAAAAIAAAAEAAQAAAAAAAMAAAAFAAMAAAAAAAIAAAAFAAQAAAAAAAMAAAAGAAMAAAAAAAIAAAAIAP//AAAAAAIAAAAHAAAAAAAAAAIAAAAGAAIAAAAAAAIAAAAKAP//AAAAAAMAAAAJAP//AAAAAAIAAAAJAP7/AAAAAAIAAAAKAP7/AAAAAAMAAAAFAAUAAAAAAAMAAAAGAAQAAAAAAAcAAAAHAAMAAAAAAAIAAAAKAAAAAAAAAAMAAAALAP//AAAAAAMAAAAGAAUAAAAAAAMAAAAHAAQAAAAAAAMAAAAKAAEAAAAAAAcAAAALAAAAAAAAAAcAAAAGAAYAAAAAAAMAAAAHAAUAAAAAAAMAAAAIAAQAAAAAAAcAAAAJAAMAAAAAAAMAAAAKAAIAAAAAAAMAAAALAAEAAAAAAAcAAAAMAAEAAAAAAAMAAAAMAAAAAAAAAAMAAAAKAP3/AAAAAAMAAAALAP3/AAAAAAMAAAALAP7/AAAAAAMAAAAMAP7/AAAAAAMAAAAMAP//AAAAAAMAAAANAP//AAAAAAMAAAANAAAAAAAAAAMAAAALAAIAAAAAAAMAAAAKAAMAAAAAAAMAAAAJAAQAAAAAAAMAAAAIAAUAAAAAAAMAAAAHAAYAAAAAAAMAAAAGAAEAAAAAAAIAAAAIAAYAAAAAAAMAAAAJAAUAAAAAAAMAAAAKAAQAAAAAAAMAAAALAAMAAAAAAAMAAAAMAAIAAAAAAAMAAAANAAEAAAAAAAMAAAANAAIAAAAAAAMAAAAMAAMAAAAAAAMAAAALAAQAAAAAAAMAAAAKAAUAAAAAAAMAAAAJAAYAAAAAAAMAAAAKAAYAAAAAAAMAAAALAAUAAAAAAAMAAAAMAAQAAAAAAAMAAAANAAMAAAAAAAMAAAAJAAIAAAAAAAMAAAAEAAIAAAAAAAMAAAAFAAEAAAAAAAMAAAAGAAAAAAAAAAMAAAAHAP//AAAAAAIAAAAIAP7/AAAAAAIAAAAJAP3/AAAAAAMAAAAIAP3/AAAAAAMAAAAHAP7/AAAAAAMAAAAGAP//AAAAAAMAAAAFAAAAAAAAAAMAAAAEAAEAAAAAAAMAAAAEAAAAAAAAAAMAAAAFAP//AAAAAAMAAAAGAP7/AAAAAAMAAAAHAP3/AAAAAAMAAAAEAP//AAAAAAMAAAAFAP7/AAAAAAMAAAAGAP3/AAAAAAMAAAALAAYAAAAAAAMAAAAMAAUAAAAAAAMAAAANAAQAAAAAAAMAAAAIAAMAAAAAAAIAAAA=")
-tile_set = SubResource("TileSet_p57ef")
-script = ExtResource("4_iywne")
+[node name="LevelManager" parent="." instance=ExtResource("18_ssvqc")]
 
-[node name="LocalHexGrid2" type="TileMapLayer" parent="."]
+[node name="UnitManager" parent="." instance=ExtResource("7_vtaks")]
+unique_name_in_owner = true
+
+[node name="PersistentUnits" type="Node2D" parent="."]
+
+[node name="Player" parent="PersistentUnits" instance=ExtResource("2_yqjtg")]
+def = ExtResource("5_iywne")
+
+[node name="Overlay" type="Node2D" parent="."]
+script = ExtResource("7_rysoc")
+
+[node name="MovementLayer" type="TileMapLayer" parent="Overlay"]
 z_index = -1
-y_sort_enabled = true
-tile_map_data = PackedByteArray("AAAHAAEAAAAAAAEAAAAIAAEAAAAAAAEAAAAIAAIAAAAAAAEAAAAHAAIAAAAAAAEAAAAJAAEAAAAAAAEAAAAJAAAAAAAAAAEAAAAIAAAAAAAAAAEAAAA=")
-tile_set = SubResource("TileSet_p57ef")
+tile_set = SubResource("TileSet_264po")
 
-[node name="MovementOverlay" type="TileMapLayer" parent="."]
-y_sort_enabled = true
-tile_set = SubResource("TileSet_gee14")
-script = ExtResource("5_gee14")
+[node name="InteractionLayer" type="TileMapLayer" parent="Overlay"]
+z_index = -1
+tile_set = SubResource("TileSet_264po")
+
+[node name="AttackLayer" type="TileMapLayer" parent="Overlay"]
+z_index = -1
+tile_set = SubResource("TileSet_264po")
 
 [node name="Cursor" parent="." instance=ExtResource("8_gee14")]
 
-[node name="UnitManager" parent="." instance=ExtResource("7_vtaks")]
-
-[node name="Player" type="Node" parent="UnitManager"]
-
-[node name="Player" parent="UnitManager/Player" instance=ExtResource("2_yqjtg")]
-position = Vector2(128, 288)
-def = ExtResource("5_iywne")
-
-[node name="Enemies" type="Node" parent="UnitManager"]
-
-[node name="Enemy" parent="UnitManager/Enemies" instance=ExtResource("2_yqjtg")]
-position = Vector2(36, 196)
-is_enemy = true
-def = ExtResource("9_0tnpc")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource("11_kvuet")
 
-[node name="HealthContainer" type="HBoxContainer" parent="CanvasLayer"]
+[node name="HealthContainer" type="HBoxContainer" parent="UI"]
 offset_left = 12.0
 offset_top = 203.0
 offset_right = 96.0
@@ -120,17 +72,13 @@ offset_bottom = 228.0
 script = ExtResource("12_kvuet")
 full_heart_texture = SubResource("AtlasTexture_kvuet")
 
-[node name="TurnLabel" type="Label" parent="CanvasLayer"]
+[node name="TurnLabel" type="Label" parent="UI"]
 offset_left = 250.0
 offset_top = 4.0
 offset_right = 290.0
 offset_bottom = 27.0
 text = "turn"
 
-[node name="Camera" parent="." node_paths=PackedStringArray("target_node") instance=ExtResource("11_kvpfn")]
-position = Vector2(109, 126)
-target_node = NodePath("../UnitManager/Player/Player")
+[node name="Camera" parent="." instance=ExtResource("11_kvpfn")]
+position = Vector2(127, 271)
 follow_speed = 3.0
-
-[node name="Exit" parent="." instance=ExtResource("10_ir15t")]
-position = Vector2(128, 61)

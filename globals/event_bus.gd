@@ -13,3 +13,6 @@ signal post_command(cmd)
 signal execute_next_command
 signal player_hp_changed(new_hp)
 signal group_round_changed(group)
+signal level_loaded(level: BaseLevel)
+signal level_completed(level: BaseLevel) 
+signal level_failed(level: BaseLevel)

@@ -5,7 +5,7 @@ class_name Cursor
 
 func _ready():
 	sprite.hide()
-	sprite.modulate.a = 0.8
+	sprite.modulate.a = 0.6
 
 var cursor_cell_position: Vector2i = Vector2i.ZERO:
 	set(cell):

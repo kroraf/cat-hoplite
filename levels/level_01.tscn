@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=4 uid="uid://oi30w10sfveu"]
+
+[ext_resource type="PackedScene" uid="uid://dp1pkl7ahvcc4" path="res://levels/base_level.tscn" id="1_ty3hu"]
+[ext_resource type="PackedScene" uid="uid://c3l8pmja4i8j4" path="res://scenes/units/unit.tscn" id="2_gg43x"]
+[ext_resource type="Resource" uid="uid://bnjhpxj5lsncg" path="res://resources/Definitions/enemy.tres" id="4_mllcm"]
+[ext_resource type="PackedScene" uid="uid://cw8vwmp8175bk" path="res://scenes/objects/exit.tscn" id="5_mllcm"]
+
+[node name="Level_01" instance=ExtResource("1_ty3hu")]
+level_name = "Level One"
+next_level_path = "res://levels/level_02.tscn"
+player_start_position = Vector2i(5, 1)
+
+[node name="CosmeticTerrain" parent="Terrain" index="0"]
+tile_map_data = PackedByteArray("AAADAP3/AAAAAAQAAAADAP7/AAAAAAQAAAADAP//AAAAAAQAAAADAAAAAAAAAAQAAAADAAEAAAAAAAQAAAADAAIAAAAAAAQAAAADAAMAAAAAAAQAAAACAAQAAAAAAAQAAAADAAQAAAAAAAQAAAAEAAMAAAAAAAQAAAAEAAIAAAAAAAQAAAAFAAEAAAAAAAQAAAAFAAAAAAAAAAQAAAAFAP//AAAAAAQAAAAEAP//AAAAAAQAAAAEAP7/AAAAAAQAAAAEAAEAAAAAAAQAAAAEAAAAAAAAAAQAAAACAAMAAAAAAAQAAAABAAMAAAAAAAQAAAAAAAMAAAAAAAQAAAAAAAIAAAAAAAQAAAD//wIAAAAAAAQAAAAAAAEAAAAAAAQAAAD//wEAAAAAAAQAAAAAAAAAAAAAAAQAAAABAP//AAAAAAQAAAACAP//AAAAAAQAAAACAP7/AAAAAAQAAAAEAP3/AAAAAAQAAAAFAP3/AAAAAAQAAAAFAP7/AAAAAAQAAAAGAP//AAAAAAQAAAAGAAAAAAAAAAQAAAAGAAEAAAAAAAQAAAAFAAIAAAAAAAQAAAACAAIAAAAAAAQAAAABAAIAAAAAAAQAAAABAAEAAAAAAAQAAAABAAAAAAAAAAQAAAACAAAAAAAAAAQAAAACAAEAAAAAAAQAAAD//wAAAAAAAAQAAAAAAP//AAAAAAQAAAABAP7/AAAAAAQAAAACAP3/AAAAAAQAAAADAPz/AAAAAAQAAAAEAPz/AAAAAAQAAAAGAP7/AAAAAAQAAAAHAP//AAAAAAQAAAAHAAAAAAAAAAQAAAAEAAQAAAAAAAQAAAAFAAMAAAAAAAQAAAAGAAIAAAAAAAQAAAAHAAEAAAAAAAQAAAA=")
+
+[node name="MainTerrain" parent="Terrain" index="1"]
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAIAAAABAAAAAAAAAAIAAAACAAAAAAAAAAIAAAACAAEAAAAAAAIAAAABAAIAAAAAAAIAAAABAAEAAAAAAAIAAAACAP//AAAAAAIAAAADAP//AAAAAAIAAAAEAP//AAAAAAIAAAAEAAAAAAAAAAIAAAAEAAEAAAAAAAIAAAAEAAIAAAAAAAIAAAADAAIAAAAAAAIAAAACAAIAAAAAAAIAAAADAP7/AAAAAAIAAAADAAAAAAAAAAIAAAADAAEAAAAAAAIAAAABAP//AAAAAAIAAAACAP7/AAAAAAIAAAAEAP7/AAAAAAIAAAAFAP//AAAAAAIAAAAFAAAAAAAAAAIAAAAGAAAAAAAAAAIAAAAFAAEAAAAAAAIAAAA=")
+
+[node name="Enemy1" parent="Units/Enemies" index="0" instance=ExtResource("2_gg43x")]
+position = Vector2(33, 64)
+is_enemy = true
+def = ExtResource("4_mllcm")
+
+[node name="Enemy2" parent="Units/Enemies" index="1" instance=ExtResource("2_gg43x")]
+position = Vector2(96, 26)
+is_enemy = true
+def = ExtResource("4_mllcm")
+
+[node name="Enemy3" parent="Units/Enemies" index="2" instance=ExtResource("2_gg43x")]
+position = Vector2(15, 10)
+is_enemy = true
+def = ExtResource("4_mllcm")
+
+[node name="Exit" parent="Objects" index="0" instance=ExtResource("5_mllcm")]
+position = Vector2(94, 88)

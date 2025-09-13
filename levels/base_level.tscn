@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://dp1pkl7ahvcc4"]
+
+[ext_resource type="Script" uid="uid://c7qqipmgx0fhd" path="res://levels/base_level.gd" id="1_ew5uy"]
+[ext_resource type="TileSet" uid="uid://bbt4hjg7b5vc2" path="res://resources/Tile/tileset/main_terrain.tres" id="1_wevqg"]
+[ext_resource type="Script" uid="uid://bmn6wvbh1vvww" path="res://scripts/grid.gd" id="3_63c5o"]
+
+[node name="BaseLevel" type="Node2D"]
+script = ExtResource("1_ew5uy")
+player_start_position = Vector2i(2, 3)
+
+[node name="Terrain" type="Node2D" parent="."]
+
+[node name="CosmeticTerrain" type="TileMapLayer" parent="Terrain"]
+z_index = -2
+tile_set = ExtResource("1_wevqg")
+
+[node name="MainTerrain" type="TileMapLayer" parent="Terrain"]
+z_index = -2
+tile_set = ExtResource("1_wevqg")
+script = ExtResource("3_63c5o")
+
+[node name="Units" type="Node2D" parent="."]
+
+[node name="Enemies" type="Node2D" parent="Units"]
+
+[node name="Objects" type="Node2D" parent="."]

@@ -1,9 +1,12 @@
 extends TileMapLayer
 
 # Configuration
-@export var highlight_atlas_coords := Vector2i(0, 0)  # Pre-made highlight tile position
+var highlight_atlas_coords := Vector2i(0, 0)
 var last_hovered_cell := Vector2i(-1, -1)
 var original_tiles := {}  # Dictionary to store original tile data
+
+func _ready():
+	Navigation.init([self])
 
 func highlight_cell(cell: Vector2i) -> void:
 	if get_cell_source_id(cell) != -1:
