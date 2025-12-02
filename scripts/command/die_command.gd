@@ -1,6 +1,6 @@
 class_name DieCommand extends Command
 
-func _init(src: Character) -> void:
+func _init(src: Unit) -> void:
 	super(src, null)
 
 func execute():

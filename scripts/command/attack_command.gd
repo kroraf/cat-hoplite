@@ -1,7 +1,7 @@
 class_name AttackCommand extends Command
 
 
-func _init(src: Character, trgt: Character) -> void:
+func _init(src: Unit, trgt: Unit) -> void:
 	super(src, trgt)
 
 func execute():

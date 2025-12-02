@@ -13,9 +13,9 @@ func unregister_object(obj: Object, cell: Vector2i) -> void:
 		occupied_tiles.erase(cell)
 		Navigation.update_obstacle(cell, false)
 		
-func move_character(character: Character, from_cell: Vector2i, to_cell: Vector2i) -> void:
-	unregister_object(character, from_cell)
-	register_object(character, to_cell)
+func move_unit(unit: Unit, from_cell: Vector2i, to_cell: Vector2i) -> void:
+	unregister_object(unit, from_cell)
+	register_object(unit, to_cell)
 
 func is_tile_occupied(cell: Vector2i) -> bool:
 	return occupied_tiles.has(cell)

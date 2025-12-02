@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://24cn2l0f6cq"]
+
+[ext_resource type="Script" uid="uid://gako0nc28hi7" path="res://scripts/ai/melee_behavior.gd" id="1_8sf0d"]
+
+[node name="MeleeBehavior" type="Node"]
+script = ExtResource("1_8sf0d")
+metadata/_custom_type_script = "uid://cmjg8qv4mxcvb"

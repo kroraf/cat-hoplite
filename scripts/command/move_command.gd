@@ -2,7 +2,7 @@ class_name MoveCommand extends Command
 
 var path: Array = []
 
-func _init(src: Character, move_path: Array) -> void:
+func _init(src: Unit, move_path: Array) -> void:
 	super(src, null)
 	path = move_path
 	pass

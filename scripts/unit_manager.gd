@@ -5,12 +5,12 @@ enum Team {PLAYER, ENEMY}
 
 var groups: Dictionary = {}  # Team -> Array of units
 var current_team: Team = Team.PLAYER
-var current_unit: Character
+var current_unit: Unit
 var current_unit_index: int = 0
 var is_animation_playing: bool = false
 
-signal turn_started(unit: Character)
-signal turn_ended(unit: Character)
+signal turn_started(unit: Unit)
+signal turn_ended(unit: Unit)
 signal battle_ended(winning_team: Team)
 
 func _ready() -> void:
@@ -27,7 +27,14 @@ func initialize_level_units(level: BaseLevel) -> void:
 	groups.clear()
 	
 	# Get persistent player units
-	var persistent_units = get_tree().current_scene.get_node("PersistentUnits")
+	var target_node = get_tree().root.find_child("Game", true, false)
+	var units_container = Node2D.new()
+	units_container.name = "PersistentUnits"
+	target_node.add_child(units_container)
+	var player_scene = preload("res://scenes/units/player.tscn")
+	var player_instance = player_scene.instantiate()
+	var persistent_units = target_node.get_node("PersistentUnits")
+	persistent_units.add_child(player_instance)
 	groups[Team.PLAYER] = persistent_units.get_children()
 	
 	# Get level-specific enemy units
@@ -45,7 +52,7 @@ func initialize_level_units(level: BaseLevel) -> void:
 
 func init_units() -> void:
 	for team in groups:
-		for unit:Character in groups[team]:
+		for unit:Unit in groups[team]:
 			unit.init()
 
 func start_battle() -> void:
@@ -69,7 +76,7 @@ func _step_turn() -> void:
 	current_unit = next_unit
 	_begin_turn()
 
-func _find_next_active_unit() -> Character:
+func _find_next_active_unit() -> Unit:
 	if groups.is_empty():
 		return null
 	
@@ -104,7 +111,7 @@ func _get_next_team(current_team_enum: Team) -> Team:
 	var next_index: int = (current_index + 1) % groups.size()
 	return Team.values()[next_index]
 
-func _get_current_unit_candidate() -> Character:
+func _get_current_unit_candidate() -> Unit:
 	if groups.has(current_team) and current_unit_index < groups[current_team].size():
 		return groups[current_team][current_unit_index]
 	return null
@@ -123,26 +130,30 @@ func _begin_turn() -> void:
 	
 	if current_team == Team.PLAYER:
 		_update_movement_field()
+		_update_attack_button()
 	else:
 		_process_enemy_turn()
 
 func _process_enemy_turn() -> void:
-	var player_unit = _get_first_player_unit()
-	if player_unit:
-		var ai_controller = MeleeAIController.new()
-		ai_controller.initialize(current_unit, player_unit)
-		ai_controller.take_turn()
+	if current_unit is Enemy:
+		current_unit.take_turn()
 	else:
-		# No players left, end turn quickly
+		push_error("Current unit is not an enemy!")
 		EventBus.end_turn.emit()
 
-func _get_first_player_unit() -> Character:
+func _get_first_player_unit() -> Unit:
 	if groups.has(Team.PLAYER) and groups[Team.PLAYER].size() > 0:
 		return groups[Team.PLAYER][0]
 	return null
 
 func _update_movement_field() -> void:
 	EventBus.show_movement_field.emit(current_unit)
+	
+func _update_attack_button() -> void:
+	if current_unit.get_nearby_enemies():
+		EventBus.toggle_attack_button.emit(true)
+	else:
+		EventBus.toggle_attack_button.emit(false)
 
 func _on_end_turn() -> void:
 	if not CommandProcessor.is_queue_empty():
@@ -151,19 +162,19 @@ func _on_end_turn() -> void:
 	turn_ended.emit(current_unit)
 	_step_turn()
 
-func get_current_unit() -> Character:
+func get_current_unit() -> Unit:
 	return current_unit
 
 func _on_movement_started() -> void:
 	is_animation_playing = true
 
-func _on_movement_complete(unit: Character) -> void:
+func _on_movement_complete(unit: Unit) -> void:
 	is_animation_playing = false
 
 func is_player_turn() -> bool:
 	return current_team == Team.PLAYER
 
-func _on_unit_died(dead_unit: Character) -> void:
+func _on_unit_died(dead_unit: Unit) -> void:
 	print("Unit died: ", dead_unit.name)
 	
 	# Remove unit from its team group
@@ -179,7 +190,7 @@ func _end_battle() -> void:
 	var winning_team = Team.PLAYER if (groups.has(Team.ENEMY) and groups[Team.ENEMY].is_empty()) else Team.ENEMY
 	print("--- BATTLE ENDED! Winner: Team ", _get_team_name(winning_team), " ---")
 	battle_ended.emit(winning_team)
-	
+	_update_attack_button()
 	_disable_all_units()
 
 func _get_team_name(team: Team) -> String:

@@ -1,19 +1,17 @@
 extends Node2D
 
-#@onready var character = $UnitManager/Player/Player
-#@onready var hexgrid = $LocalHexGrid
 @onready var level_manager: LevelManager = $LevelManager
-#@onready var unit_manager: UnitManager = $UnitManager
 @onready var unit_manager = %UnitManager
-
 @onready var overlay = $Overlay
 @onready var camera: Camera2D = $Camera
-@onready var persistent_units = $PersistentUnits
+@onready var menu = $UI/Menu
+@onready var xy_label = $UI/XYLabel
 
 var mouse_click_coordinates: Vector2i
-var first_unit: Character
+var first_unit: Unit
 var current_level: BaseLevel
 var hexgrid: TileMapLayer
+var player: Player
 
 
 func _ready() -> void:
@@ -28,19 +26,18 @@ func _ready() -> void:
 	EventBus.level_completed.connect(_on_level_completed)
 	EventBus.level_failed.connect(_on_level_failed)
 	
-	first_unit = persistent_units.get_node("Player")
-	
 	level_manager.load_level("res://levels/level_01.tscn")
 	
 func _on_level_loaded(level: BaseLevel):
-	#OccupancyManager.clear()
 	current_level = level
 	hexgrid = level.get_hexgrid()
 	var player_start_position = level.get_player_start_position()
+	unit_manager.initialize_level_units(level)
+	var persistent_units = get_tree().root.find_child("PersistentUnits", true, false)
+	first_unit = persistent_units.get_node("Player")
+	player = first_unit
 	first_unit.grid_position = player_start_position
 	first_unit.position = Navigation.map_to_global(player_start_position)
-	unit_manager.initialize_level_units(level)
-		
 	unit_manager.start_battle()
 	
 	_setup_camera()
@@ -48,21 +45,19 @@ func _on_level_loaded(level: BaseLevel):
 func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed("right_mouse_button"):
 		print(">>", hexgrid.local_to_map(get_global_mouse_position()))
+		xy_label.text = str(hexgrid.local_to_map(get_global_mouse_position()))
 	if event.is_action_pressed("left_mouse_button"):
 		_select_hex(hexgrid.local_to_map(get_global_mouse_position()))
 	if event is InputEventScreenTouch:
 		if event.pressed:
 			_select_hex(hexgrid.local_to_map(event.position))
 		else:
-			# Finger was lifted from the screen
 			pass
 
 func _setup_camera():
 	if current_level:
 		if first_unit:
-			# Set the camera's target to the player
 			camera.target_node = first_unit
-			# Immediately position camera on player
 			camera.global_position = first_unit.global_position
 			print("Camera target set to: ", first_unit.name)
 		else:
@@ -84,14 +79,14 @@ func _select_hex(hex_coordinates: Vector2i) -> void:
 				interact_cmd.name = "Plr interaction"
 				EventBus.post_command.emit(interact_cmd)
 	
-func move_unit_to_cell(unit: Character, path: Array[Vector2i]) -> void:
+func move_unit_to_cell(unit: Unit, path: Array[Vector2i]) -> void:
 	print("Moving unit: ", unit.name, " along path: ", path)
 	unit.move_along_path(path)
-	
+
 func _on_show_movement_field(unit):
 	update_movement_overlay(unit)
 	
-func update_movement_overlay(unit: Character) -> void:
+func update_movement_overlay(unit: Unit) -> void:
 	overlay.clear_all_highlights()
 	
 	# Highlight movement cells (walkable but not interactable)
@@ -127,3 +122,9 @@ func _on_level_completed(level: BaseLevel):
 
 func _on_level_failed(level: BaseLevel):
 	print("Game: Level failed - ", level.level_name)
+
+
+func _on_attack_button_pressed():
+	player.scan_for_enemies_and_attack()
+	player.decrease_ap(1)
+	player._evaluate_ap()

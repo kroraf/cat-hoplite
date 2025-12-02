@@ -1,15 +1,16 @@
-[gd_scene load_steps=16 format=3 uid="uid://5iieinnysufo"]
+[gd_scene load_steps=17 format=3 uid="uid://5iieinnysufo"]
 
 [ext_resource type="Script" uid="uid://bu1qupn4eegvq" path="res://scripts/game.gd" id="1_lnu2h"]
 [ext_resource type="Texture2D" uid="uid://dr51i5n6ce0a0" path="res://resources/Tile/TilesetHighlight.png" id="2_p57ef"]
-[ext_resource type="PackedScene" uid="uid://c3l8pmja4i8j4" path="res://scenes/units/unit.tscn" id="2_yqjtg"]
-[ext_resource type="Resource" uid="uid://35j86kr2rrnt" path="res://resources/Definitions/cat.tres" id="5_iywne"]
 [ext_resource type="Script" uid="uid://o3l0y6mjbi35" path="res://scripts/overlay.gd" id="7_rysoc"]
 [ext_resource type="PackedScene" uid="uid://c41bfw5lpie3k" path="res://scenes/unit_manager.tscn" id="7_vtaks"]
 [ext_resource type="PackedScene" uid="uid://jc8gtx6jittt" path="res://scenes/cursor.tscn" id="8_gee14"]
 [ext_resource type="Texture2D" uid="uid://dg8l5rw3o2h6r" path="res://resources/UI/FreeHorrorUi.png" id="11_dinhu"]
+[ext_resource type="PackedScene" uid="uid://dtoqcxpl6k1g5" path="res://scenes/ui/menu.tscn" id="11_ir15t"]
 [ext_resource type="PackedScene" uid="uid://deoacneqlhr7m" path="res://scenes/camera.tscn" id="11_kvpfn"]
 [ext_resource type="Script" uid="uid://dee7fmuvou3dt" path="res://scripts/ui_controller.gd" id="11_kvuet"]
+[ext_resource type="Theme" uid="uid://dftu4hp0svl4l" path="res://resources/UI/ui_theme.tres" id="11_trtic"]
+[ext_resource type="PackedScene" uid="uid://c5xuppkvwcoie" path="res://scenes/slash_effect.tscn" id="12_dinhu"]
 [ext_resource type="Script" uid="uid://fg0yp07pbr36" path="res://scripts/health_container.gd" id="12_kvuet"]
 [ext_resource type="PackedScene" uid="uid://blhusknicdo6u" path="res://scenes/level_manager.tscn" id="18_ssvqc"]
 
@@ -38,11 +39,6 @@ script = ExtResource("1_lnu2h")
 
 [node name="UnitManager" parent="." instance=ExtResource("7_vtaks")]
 unique_name_in_owner = true
-
-[node name="PersistentUnits" type="Node2D" parent="."]
-
-[node name="Player" parent="PersistentUnits" instance=ExtResource("2_yqjtg")]
-def = ExtResource("5_iywne")
 
 [node name="Overlay" type="Node2D" parent="."]
 script = ExtResource("7_rysoc")
@@ -79,6 +75,45 @@ offset_right = 290.0
 offset_bottom = 27.0
 text = "turn"
 
+[node name="AttackButton" type="Button" parent="UI"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -58.0
+offset_top = -31.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("11_trtic")
+disabled = true
+text = "Attack"
+
+[node name="Menu" parent="UI" instance=ExtResource("11_ir15t")]
+visible = false
+
+[node name="XYLabel" type="Label" parent="UI"]
+offset_left = 132.0
+offset_top = 6.0
+offset_right = 172.0
+offset_bottom = 26.0
+
+[node name="MenuButton" type="Button" parent="UI"]
+visible = false
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -42.0
+offset_bottom = 34.0
+grow_horizontal = 0
+size_flags_vertical = 8
+theme = ExtResource("11_trtic")
+text = "MENU"
+
 [node name="Camera" parent="." instance=ExtResource("11_kvpfn")]
 position = Vector2(127, 271)
 follow_speed = 3.0
+
+[node name="SlashEffect" parent="." instance=ExtResource("12_dinhu")]
+
+[connection signal="pressed" from="UI/AttackButton" to="." method="_on_attack_button_pressed"]

@@ -89,7 +89,7 @@ func is_cell_solid(coords: Vector2i) -> bool:
 func snap_to_tile_center(pos):
 	return map_to_global(global_to_map(pos))
 	
-func get_walkable_cells(unit: Character) -> Array[Vector2i]:
+func get_walkable_cells(unit: Unit) -> Array[Vector2i]:
 	var cells: Array[Vector2i] = []
 	var movement_dirs = unit.def.move_def
 	
@@ -99,7 +99,7 @@ func get_walkable_cells(unit: Character) -> Array[Vector2i]:
 			cells.append(target_cell)
 	return cells
 	
-func get_interactable_cells(unit: Character) -> Array[Vector2i]:
+func get_interactable_cells(unit: Unit) -> Array[Vector2i]:
 	var cells: Array[Vector2i] = []
 	var interact_dirs = unit.def.move_def
 	for dir in interact_dirs:

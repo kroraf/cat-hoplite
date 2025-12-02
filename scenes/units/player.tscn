@@ -1,0 +1,15 @@
+[gd_scene load_steps=6 format=3 uid="uid://jlidp4vyk6yi"]
+
+[ext_resource type="PackedScene" uid="uid://c3l8pmja4i8j4" path="res://scenes/units/unit.tscn" id="1_esfxm"]
+[ext_resource type="Script" uid="uid://bmh50b28l3xu" path="res://scripts/player.gd" id="2_15tbu"]
+[ext_resource type="AudioStream" uid="uid://16gq8e08jadu" path="res://resources/sounds/Infantry March A.wav" id="3_15tbu"]
+[ext_resource type="AudioStream" uid="uid://cdmu5m2kubdqt" path="res://resources/sounds/Stab Medium C.wav" id="3_55td2"]
+[ext_resource type="Resource" uid="uid://35j86kr2rrnt" path="res://resources/Definitions/cat.tres" id="5_rwmet"]
+
+[node name="Player" instance=ExtResource("1_esfxm")]
+script = ExtResource("2_15tbu")
+player_sfx_run = null
+player_sfx_hit = ExtResource("3_55td2")
+player_sfx_attack = null
+player_sfx_die = ExtResource("3_15tbu")
+def = ExtResource("5_rwmet")

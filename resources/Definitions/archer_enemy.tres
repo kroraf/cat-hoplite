@@ -1,0 +1,81 @@
+[gd_resource type="Resource" script_class="UnitDefinition" load_steps=16 format=3 uid="uid://b2ay7488n8q8p"]
+
+[ext_resource type="Script" uid="uid://r6pn0sjb3vqc" path="res://resources/Definitions/action_def.gd" id="1_cid2f"]
+[ext_resource type="SpriteFrames" uid="uid://3xeod8ukulhw" path="res://resources/Unit/Hallokin/hallokin_spriteframes.tres" id="2_cid2f"]
+[ext_resource type="Script" uid="uid://guvf67wxxfbp" path="res://resources/Definitions/unit_def.gd" id="3_rabct"]
+
+[sub_resource type="Resource" id="Resource_cid2f"]
+script = ExtResource("1_cid2f")
+block_mode = 2
+end_point = Vector2i(-2, 0)
+metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
+
+[sub_resource type="Resource" id="Resource_7vo8a"]
+script = ExtResource("1_cid2f")
+block_mode = 2
+end_point = Vector2i(0, -2)
+metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
+
+[sub_resource type="Resource" id="Resource_rabct"]
+script = ExtResource("1_cid2f")
+block_mode = 2
+end_point = Vector2i(2, -2)
+metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
+
+[sub_resource type="Resource" id="Resource_ekyf2"]
+script = ExtResource("1_cid2f")
+block_mode = 2
+end_point = Vector2i(2, 0)
+metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
+
+[sub_resource type="Resource" id="Resource_xyjuc"]
+script = ExtResource("1_cid2f")
+block_mode = 2
+end_point = Vector2i(0, 2)
+metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
+
+[sub_resource type="Resource" id="Resource_sb2e3"]
+script = ExtResource("1_cid2f")
+block_mode = 2
+end_point = Vector2i(-2, 2)
+metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
+
+[sub_resource type="Resource" id="Resource_c4eyt"]
+script = ExtResource("1_cid2f")
+end_point = Vector2i(1, 0)
+metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
+
+[sub_resource type="Resource" id="Resource_nc463"]
+script = ExtResource("1_cid2f")
+end_point = Vector2i(0, -1)
+metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
+
+[sub_resource type="Resource" id="Resource_tcw8b"]
+script = ExtResource("1_cid2f")
+end_point = Vector2i(1, -1)
+metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
+
+[sub_resource type="Resource" id="Resource_npo2o"]
+script = ExtResource("1_cid2f")
+end_point = Vector2i(-1, 0)
+metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
+
+[sub_resource type="Resource" id="Resource_e4brp"]
+script = ExtResource("1_cid2f")
+end_point = Vector2i(0, 1)
+metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
+
+[sub_resource type="Resource" id="Resource_qm8vy"]
+script = ExtResource("1_cid2f")
+end_point = Vector2i(-1, 1)
+metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
+
+[resource]
+script = ExtResource("3_rabct")
+name = "Archer"
+type = 1
+frames = ExtResource("2_cid2f")
+hp = 1
+move_def = Array[ExtResource("1_cid2f")]([SubResource("Resource_c4eyt"), SubResource("Resource_nc463"), SubResource("Resource_tcw8b"), SubResource("Resource_npo2o"), SubResource("Resource_e4brp"), SubResource("Resource_qm8vy")])
+action_def = Array[ExtResource("1_cid2f")]([SubResource("Resource_cid2f"), SubResource("Resource_7vo8a"), SubResource("Resource_rabct"), SubResource("Resource_ekyf2"), SubResource("Resource_xyjuc"), SubResource("Resource_sb2e3")])
+action_points = 1

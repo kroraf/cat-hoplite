@@ -1,7 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://c3l8pmja4i8j4"]
+[gd_scene load_steps=7 format=3 uid="uid://c3l8pmja4i8j4"]
 
 [ext_resource type="Script" uid="uid://bwfgq2jy38vmt" path="res://scripts/unit.gd" id="1_s4dg7"]
 [ext_resource type="SpriteFrames" uid="uid://bhttsfpi2y6cx" path="res://resources/Unit/Characters/boxer_spriteframes.tres" id="2_pkhve"]
+[ext_resource type="AudioStream" uid="uid://1jxj4yrlslw6" path="res://resources/sounds/25_orc_walk_stone_1.wav" id="3_mgebg"]
+[ext_resource type="AudioStream" uid="uid://0nbpfq0u841c" path="res://resources/sounds/Club Small C.wav" id="4_6k8ya"]
+[ext_resource type="AudioStream" uid="uid://bxyem0a5wfw1" path="res://resources/sounds/Revenant Short 009.wav" id="4_mgebg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wojmw"]
 size = Vector2(15, 18)
@@ -18,3 +21,18 @@ position = Vector2(0, -12)
 sprite_frames = ExtResource("2_pkhve")
 animation = &"idle"
 autoplay = "idle"
+
+[node name="sfx_run" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_mgebg")
+volume_db = -10.0
+
+[node name="sfx_hit" type="AudioStreamPlayer" parent="."]
+volume_db = -10.0
+
+[node name="sfx_attack" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_6k8ya")
+volume_db = -10.0
+
+[node name="sfx_die" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_mgebg")
+volume_db = -10.0

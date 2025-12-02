@@ -36,7 +36,7 @@ metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
 
 [resource]
 script = ExtResource("1_avr8q")
-name = "BadGuy1"
+name = "Archer"
 type = 1
 frames = ExtResource("1_c4eyt")
 hp = 1

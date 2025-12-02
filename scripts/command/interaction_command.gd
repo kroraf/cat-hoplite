@@ -1,6 +1,6 @@
 class_name InteractionCommand extends Command
 
-func _init(src: Character, trgt: Node) -> void:
+func _init(src: Unit, trgt: Node) -> void:
 	super(src, trgt)
 
 func execute():

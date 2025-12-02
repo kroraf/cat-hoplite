@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://5rvdpes45t6o"]
+
+[ext_resource type="Theme" uid="uid://dftu4hp0svl4l" path="res://resources/UI/ui_theme.tres" id="1_fe2o3"]
+[ext_resource type="PackedScene" uid="uid://dtoqcxpl6k1g5" path="res://scenes/ui/menu.tscn" id="2_fe2o3"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_fe2o3")
+
+[node name="Menu" parent="." instance=ExtResource("2_fe2o3")]
+layout_mode = 1

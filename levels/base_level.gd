@@ -14,14 +14,14 @@ func _ready():
 func get_hexgrid() -> TileMapLayer:
 	return $Terrain/MainTerrain
 
-func get_all_units() -> Array[Character]:
-	var units: Array[Character] = []
+func get_all_units() -> Array[Unit]:
+	var units: Array[Unit] = []
 	
 	# Only return level-specific units (enemies)
 	var enemies_node = $LevelUnits/Enemies
 	if enemies_node:
 		for child in enemies_node.get_children():
-			if child is Character:
+			if child is Unit:
 				units.append(child)
 	
 	return units

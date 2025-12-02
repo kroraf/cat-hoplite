@@ -4,14 +4,14 @@ class_name MeleeAIController
 enum AIState { DECIDE, MOVE, ATTACK, END_TURN }
 @export var current_state: AIState = AIState.DECIDE
 
-var unit: Character
+var unit: Unit
 var blackboard: Dictionary = {}
-var player: Character  # Reference to player character
+var player: Unit  # Reference to player Unit
 
-func initialize(unit_node: Character, player_node: Character) -> void:
+func initialize(unit_node: Unit, player_node: Unit) -> void:
 	unit = unit_node
 	player = player_node
-	blackboard["character"] = unit
+	blackboard["Unit"] = unit
 	blackboard["current_cell"] = unit.grid_position
 
 func take_turn() -> void:

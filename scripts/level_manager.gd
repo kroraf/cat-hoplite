@@ -17,7 +17,8 @@ func load_level(level_path: String) -> void:
 	# Load new level
 	var level_scene = load(level_path)
 	current_level = level_scene.instantiate()
-	get_tree().current_scene.add_child(current_level)
+	var target_node = get_tree().root.find_child("Game", true, false)
+	target_node.add_child(current_level)
 	
 	# Level will emit level_loaded signal via EventBus in its _ready()
 
@@ -39,7 +40,7 @@ func _load_next_level(next_level_path: String):
 	else:
 		# No next level - game completed!
 		#EventBus.game_ended.emit(true)
-		print("NOT NEXT LEVEL. GAME OVER.")  # victory = true
+		print("NO NEXT LEVEL. GAME OVER.")  # victory = true
 
 func get_current_level() -> BaseLevel:
 	return current_level

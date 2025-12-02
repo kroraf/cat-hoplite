@@ -8,11 +8,17 @@ var executing: bool = false
 
 func _ready() -> void:
 	EventBus.post_command.connect(_on_post_command)
+	EventBus.post_command_next.connect(func(c): _on_post_command(c, true))
 	EventBus.execute_next_command.connect(_on_execute_next_command)
 	
-func _on_post_command(command):
+func _on_post_command(command, insert_next := false):
 	print("- Adding {0} to queue.".format([command]))
-	command_queue.append(command)
+	if insert_next and executing:
+		# Insert right after the current command
+		command_queue.insert(0, command)
+	else:
+		# Default: add to the back
+		command_queue.append(command)
 	EventBus.execute_next_command.emit()
 	
 func _on_execute_next_command():
