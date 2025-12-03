@@ -114,10 +114,7 @@ func _can_attack_player() -> bool:
 	if not current_player:
 		return false
 	
-	var enemy_cell = unit.grid_position
-	var player_cell = current_player.grid_position
-	var distance = Navigation.hex_distance(enemy_cell, player_cell)
-	return distance == 1
+	return unit.get_opponents_in_attack_range().size() > 0
 
 func _get_path_to_player() -> PackedVector2Array:
 	var current_player = await _get_player()

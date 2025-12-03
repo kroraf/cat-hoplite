@@ -12,5 +12,4 @@ func _on_group_round_changed(group_name):
 	turn_label.text = str(group_name)
 
 func _on_toggle_attack_button(enabled: bool):
-	print("_on_toggle_attack_button ", enabled)
 	attack_button.disabled = not enabled

@@ -36,9 +36,10 @@ metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
 
 [resource]
 script = ExtResource("1_avr8q")
-name = "Archer"
+name = "MeleeEnemy"
 type = 1
 frames = ExtResource("1_c4eyt")
 hp = 1
 move_def = Array[ExtResource("2_c4eyt")]([SubResource("Resource_c4eyt"), SubResource("Resource_nc463"), SubResource("Resource_tcw8b"), SubResource("Resource_npo2o"), SubResource("Resource_e4brp"), SubResource("Resource_qm8vy")])
+action_def = Array[ExtResource("2_c4eyt")]([SubResource("Resource_c4eyt"), SubResource("Resource_nc463"), SubResource("Resource_tcw8b"), SubResource("Resource_npo2o"), SubResource("Resource_e4brp"), SubResource("Resource_qm8vy")])
 action_points = 1

@@ -79,7 +79,7 @@ func _on_move_animation_complete():
 func scan_for_enemies_and_attack():
 	EventBus.action_started.emit(self)
 	var enemies_in_range: Array[Unit] = []
-	enemies_in_range = get_nearby_enemies()
+	enemies_in_range = get_opponents_in_attack_range()
 	print("Enemies in range: ", enemies_in_range)
 	for target in enemies_in_range:
 		var attack_cmd = AttackCommand.new(self, target)
@@ -87,7 +87,7 @@ func scan_for_enemies_and_attack():
 		EventBus.post_command.emit(attack_cmd)
 	EventBus.action_complete.emit(self)
 	
-func get_nearby_enemies():
+func get_opponents_in_attack_range():
 	var enemies_in_range: Array[Unit] = []
 	for cell in _get_actionable_cells():
 		var occupant = OccupancyManager.get_occupant(cell)
@@ -104,8 +104,7 @@ func attack(target: Unit):
 	
 func _get_actionable_cells() -> Array[Vector2i]:
 	var cells: Array[Vector2i] = []
-	var movement_dirs = self.def.move_def
-	
+	var movement_dirs = self.def.action_def
 	for dir in movement_dirs:
 		var target_cell = self.grid_position + dir.end_point
 		cells.append(target_cell)
@@ -129,8 +128,9 @@ func _on_movement_complete(unit_that_moved):
 		return
 	sprite.play("idle")
 	is_in_motion = false
-	#OccupancyManager.register_object(self, grid_position)
-	await scan_for_enemies_and_attack()
+
+	if not is_enemy:
+		await scan_for_enemies_and_attack()
 	await get_tree().create_timer(0.1).timeout
 	decrease_ap(1)
 	_evaluate_ap()

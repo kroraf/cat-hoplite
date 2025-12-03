@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://de04ybu5omr8d"]
+
+[ext_resource type="Script" uid="uid://cmjg8qv4mxcvb" path="res://scripts/ai/ai_behavior.gd" id="1_vvi7c"]
+
+[node name="RangedBehavior" type="Node"]
+script = ExtResource("1_vvi7c")
+metadata/_custom_type_script = "uid://cmjg8qv4mxcvb"

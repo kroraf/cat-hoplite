@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="UnitDefinition" load_steps=16 format=3 uid="uid://b2ay7488n8q8p"]
+[gd_resource type="Resource" script_class="UnitDefinition" load_steps=22 format=3 uid="uid://b2ay7488n8q8p"]
 
 [ext_resource type="Script" uid="uid://r6pn0sjb3vqc" path="res://resources/Definitions/action_def.gd" id="1_cid2f"]
 [ext_resource type="SpriteFrames" uid="uid://3xeod8ukulhw" path="res://resources/Unit/Hallokin/hallokin_spriteframes.tres" id="2_cid2f"]
@@ -40,6 +40,42 @@ block_mode = 2
 end_point = Vector2i(-2, 2)
 metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
 
+[sub_resource type="Resource" id="Resource_t8vvf"]
+script = ExtResource("1_cid2f")
+block_mode = 2
+end_point = Vector2i(-3, 0)
+metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
+
+[sub_resource type="Resource" id="Resource_oc6m8"]
+script = ExtResource("1_cid2f")
+block_mode = 2
+end_point = Vector2i(0, -3)
+metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
+
+[sub_resource type="Resource" id="Resource_5aw4q"]
+script = ExtResource("1_cid2f")
+block_mode = 2
+end_point = Vector2i(3, -3)
+metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
+
+[sub_resource type="Resource" id="Resource_xhg2h"]
+script = ExtResource("1_cid2f")
+block_mode = 2
+end_point = Vector2i(3, 0)
+metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
+
+[sub_resource type="Resource" id="Resource_c28ge"]
+script = ExtResource("1_cid2f")
+block_mode = 2
+end_point = Vector2i(0, 3)
+metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
+
+[sub_resource type="Resource" id="Resource_5re68"]
+script = ExtResource("1_cid2f")
+block_mode = 2
+end_point = Vector2i(-3, 3)
+metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
+
 [sub_resource type="Resource" id="Resource_c4eyt"]
 script = ExtResource("1_cid2f")
 end_point = Vector2i(1, 0)
@@ -77,5 +113,5 @@ type = 1
 frames = ExtResource("2_cid2f")
 hp = 1
 move_def = Array[ExtResource("1_cid2f")]([SubResource("Resource_c4eyt"), SubResource("Resource_nc463"), SubResource("Resource_tcw8b"), SubResource("Resource_npo2o"), SubResource("Resource_e4brp"), SubResource("Resource_qm8vy")])
-action_def = Array[ExtResource("1_cid2f")]([SubResource("Resource_cid2f"), SubResource("Resource_7vo8a"), SubResource("Resource_rabct"), SubResource("Resource_ekyf2"), SubResource("Resource_xyjuc"), SubResource("Resource_sb2e3")])
+action_def = Array[ExtResource("1_cid2f")]([SubResource("Resource_cid2f"), SubResource("Resource_7vo8a"), SubResource("Resource_rabct"), SubResource("Resource_ekyf2"), SubResource("Resource_xyjuc"), SubResource("Resource_sb2e3"), SubResource("Resource_t8vvf"), SubResource("Resource_oc6m8"), SubResource("Resource_5aw4q"), SubResource("Resource_xhg2h"), SubResource("Resource_c28ge"), SubResource("Resource_5re68")])
 action_points = 1

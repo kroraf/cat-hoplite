@@ -3,7 +3,7 @@ class_name UnitManager
 
 enum Team {PLAYER, ENEMY}
 
-var groups: Dictionary = {}  # Team -> Array of units
+var groups: Dictionary = {}
 var current_team: Team = Team.PLAYER
 var current_unit: Unit
 var current_unit_index: int = 0
@@ -28,13 +28,15 @@ func initialize_level_units(level: BaseLevel) -> void:
 	
 	# Get persistent player units
 	var target_node = get_tree().root.find_child("Game", true, false)
-	var units_container = Node2D.new()
-	units_container.name = "PersistentUnits"
-	target_node.add_child(units_container)
-	var player_scene = preload("res://scenes/units/player.tscn")
-	var player_instance = player_scene.instantiate()
-	var persistent_units = target_node.get_node("PersistentUnits")
-	persistent_units.add_child(player_instance)
+	var persistent_units = target_node.find_child("PersistentUnits", false, false)
+	if not persistent_units:
+		var units_container = Node2D.new()
+		units_container.name = "PersistentUnits"
+		target_node.add_child(units_container)
+		var player_scene = preload("res://scenes/units/player.tscn")
+		var player_instance = player_scene.instantiate()
+		persistent_units = target_node.get_node("PersistentUnits")
+		persistent_units.add_child(player_instance)
 	groups[Team.PLAYER] = persistent_units.get_children()
 	
 	# Get level-specific enemy units
@@ -150,7 +152,7 @@ func _update_movement_field() -> void:
 	EventBus.show_movement_field.emit(current_unit)
 	
 func _update_attack_button() -> void:
-	if current_unit.get_nearby_enemies():
+	if current_unit.get_opponents_in_attack_range():
 		EventBus.toggle_attack_button.emit(true)
 	else:
 		EventBus.toggle_attack_button.emit(false)

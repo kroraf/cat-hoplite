@@ -5,7 +5,6 @@ extends NinePatchRect
 "res://scenes/game.tscn"
 
 func _ready():
-	#visible = false
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	
 func _on_new_game_pressed():

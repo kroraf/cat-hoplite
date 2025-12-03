@@ -1,14 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://jvl06lb1uk0m"]
+[gd_scene load_steps=4 format=3 uid="uid://jvl06lb1uk0m"]
 
 [ext_resource type="PackedScene" uid="uid://c3l8pmja4i8j4" path="res://scenes/units/unit.tscn" id="1_mpn3k"]
 [ext_resource type="Script" uid="uid://cb4w7g88cy88x" path="res://scripts/enemy.gd" id="2_src7g"]
-[ext_resource type="Resource" uid="uid://bnjhpxj5lsncg" path="res://resources/Definitions/enemy.tres" id="3_ickjd"]
 [ext_resource type="PackedScene" uid="uid://24cn2l0f6cq" path="res://scripts/ai/melee_behavior.tscn" id="3_v0dqq"]
 
 [node name="Enemy" instance=ExtResource("1_mpn3k")]
 script = ExtResource("2_src7g")
 ai_behavior_scene = ExtResource("3_v0dqq")
-def = ExtResource("3_ickjd")
 
 [node name="AnimatedSprite2D" parent="." index="1"]
 animation = &"run"

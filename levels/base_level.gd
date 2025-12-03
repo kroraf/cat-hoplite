@@ -36,7 +36,6 @@ func fail_level():
 	EventBus.level_failed.emit(self)
 
 func _initialize_interactable_objects():
-	#OccupancyManager.clear()
 	var interactables = _find_all_interactable_objects()
 	for obj in interactables:
 		obj.initialize_object()
