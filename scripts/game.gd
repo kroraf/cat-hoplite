@@ -125,6 +125,6 @@ func _on_level_failed(level: BaseLevel):
 
 
 func _on_attack_button_pressed():
-	player.scan_for_enemies_and_attack()
+	player.scan_for_opponents_and_attack()
 	player.decrease_ap(1)
 	player._evaluate_ap()

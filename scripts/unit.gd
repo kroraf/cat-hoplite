@@ -76,12 +76,12 @@ func _on_move_animation_complete():
 	OccupancyManager.register_object(self, Navigation.global_to_map(position))
 	_start_next_move()
 	
-func scan_for_enemies_and_attack():
+func scan_for_opponents_and_attack():
 	EventBus.action_started.emit(self)
-	var enemies_in_range: Array[Unit] = []
-	enemies_in_range = get_opponents_in_attack_range()
-	print("Enemies in range: ", enemies_in_range)
-	for target in enemies_in_range:
+	var opponents_in_range: Array[Unit] = []
+	opponents_in_range = get_opponents_in_attack_range()
+	print("Enemies in range: ", opponents_in_range)
+	for target in opponents_in_range:
 		var attack_cmd = AttackCommand.new(self, target)
 		attack_cmd.name = "{0} attk".format([self.name])
 		EventBus.post_command.emit(attack_cmd)
@@ -89,7 +89,7 @@ func scan_for_enemies_and_attack():
 	
 func get_opponents_in_attack_range():
 	var enemies_in_range: Array[Unit] = []
-	for cell in _get_actionable_cells():
+	for cell in get_actionable_cells():
 		var occupant = OccupancyManager.get_occupant(cell)
 		if occupant and occupant is Unit and occupant != self and occupant.is_enemy != self.is_enemy:
 			print("I think there is and occupant at: ", cell)
@@ -102,7 +102,7 @@ func attack(target: Unit):
 	await _play_attack_animation()
 	target.take_damage(1)
 	
-func _get_actionable_cells() -> Array[Vector2i]:
+func get_actionable_cells() -> Array[Vector2i]:
 	var cells: Array[Vector2i] = []
 	var movement_dirs = self.def.action_def
 	for dir in movement_dirs:
@@ -129,8 +129,7 @@ func _on_movement_complete(unit_that_moved):
 	sprite.play("idle")
 	is_in_motion = false
 
-	if not is_enemy:
-		await scan_for_enemies_and_attack()
+	await scan_for_opponents_and_attack()
 	await get_tree().create_timer(0.1).timeout
 	decrease_ap(1)
 	_evaluate_ap()

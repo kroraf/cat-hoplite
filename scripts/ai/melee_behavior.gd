@@ -55,7 +55,7 @@ func _execute_move() -> void:
 		_process_ai()
 
 func _execute_attack() -> void:
-	unit.scan_for_enemies_and_attack()
+	unit.scan_for_opponents_and_attack()
 	current_state = AIState.END_TURN
 	_process_ai()
 
