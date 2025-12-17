@@ -13,3 +13,4 @@ enum Type {
 @export var move_def: Array[ActionDefinition]
 @export var action_def: Array[ActionDefinition]
 @export var action_points: int
+@export var sprite_hue: Color

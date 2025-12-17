@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="UnitDefinition" load_steps=10 format=3 uid="uid://bnjhpxj5lsncg"]
+
+[ext_resource type="Script" uid="uid://r6pn0sjb3vqc" path="res://resources/Definitions/action_def.gd" id="1_apah4"]
+[ext_resource type="SpriteFrames" uid="uid://bhttsfpi2y6cx" path="res://resources/Unit/Characters/boxer_spriteframes.tres" id="2_v2vtm"]
+[ext_resource type="Script" uid="uid://guvf67wxxfbp" path="res://resources/Definitions/unit_def.gd" id="3_nrrjr"]
+
+[sub_resource type="Resource" id="Resource_c4eyt"]
+script = ExtResource("1_apah4")
+end_point = Vector2i(1, 0)
+metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
+
+[sub_resource type="Resource" id="Resource_nc463"]
+script = ExtResource("1_apah4")
+end_point = Vector2i(0, -1)
+metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
+
+[sub_resource type="Resource" id="Resource_tcw8b"]
+script = ExtResource("1_apah4")
+end_point = Vector2i(1, -1)
+metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
+
+[sub_resource type="Resource" id="Resource_npo2o"]
+script = ExtResource("1_apah4")
+end_point = Vector2i(-1, 0)
+metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
+
+[sub_resource type="Resource" id="Resource_e4brp"]
+script = ExtResource("1_apah4")
+end_point = Vector2i(0, 1)
+metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
+
+[sub_resource type="Resource" id="Resource_qm8vy"]
+script = ExtResource("1_apah4")
+end_point = Vector2i(-1, 1)
+metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
+
+[resource]
+script = ExtResource("3_nrrjr")
+name = "MeleeEnemy"
+type = 1
+frames = ExtResource("2_v2vtm")
+hp = 1
+move_def = Array[ExtResource("1_apah4")]([SubResource("Resource_c4eyt"), SubResource("Resource_nc463"), SubResource("Resource_tcw8b"), SubResource("Resource_npo2o"), SubResource("Resource_e4brp"), SubResource("Resource_qm8vy")])
+action_def = Array[ExtResource("1_apah4")]([SubResource("Resource_c4eyt"), SubResource("Resource_nc463"), SubResource("Resource_tcw8b"), SubResource("Resource_npo2o"), SubResource("Resource_e4brp"), SubResource("Resource_qm8vy")])
+action_points = 1

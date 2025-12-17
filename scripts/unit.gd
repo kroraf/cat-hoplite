@@ -35,6 +35,8 @@ func init():
 		current_hp = def.hp
 	if not is_enemy:
 		EventBus.player_hp_changed.emit(current_hp)
+	if def.sprite_hue:
+		sprite.modulate = def.sprite_hue
 
 func move_along_path(path: Array) -> void:
 	_play_run_sound()

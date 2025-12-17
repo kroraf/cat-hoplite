@@ -1,147 +1,178 @@
-[gd_resource type="Resource" script_class="UnitDefinition" load_steps=28 format=3 uid="uid://b2ay7488n8q8p"]
+[gd_resource type="Resource" script_class="UnitDefinition" load_steps=34 format=3 uid="uid://bhriey1prbwjt"]
 
-[ext_resource type="Script" uid="uid://r6pn0sjb3vqc" path="res://resources/Definitions/action_def.gd" id="1_cid2f"]
-[ext_resource type="SpriteFrames" uid="uid://3xeod8ukulhw" path="res://resources/Unit/Hallokin/hallokin_spriteframes.tres" id="2_cid2f"]
-[ext_resource type="Script" uid="uid://guvf67wxxfbp" path="res://resources/Definitions/unit_def.gd" id="3_rabct"]
+[ext_resource type="Script" uid="uid://r6pn0sjb3vqc" path="res://resources/Definitions/action_def.gd" id="1_3ttdl"]
+[ext_resource type="SpriteFrames" uid="uid://3xeod8ukulhw" path="res://resources/Unit/Hallokin/hallokin_spriteframes.tres" id="2_p71nv"]
+[ext_resource type="Script" uid="uid://guvf67wxxfbp" path="res://resources/Definitions/unit_def.gd" id="3_pmtpx"]
 
 [sub_resource type="Resource" id="Resource_cid2f"]
-script = ExtResource("1_cid2f")
+script = ExtResource("1_3ttdl")
 block_mode = 2
 end_point = Vector2i(-2, 0)
 metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
 
 [sub_resource type="Resource" id="Resource_7vo8a"]
-script = ExtResource("1_cid2f")
+script = ExtResource("1_3ttdl")
 block_mode = 2
 end_point = Vector2i(0, -2)
 metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
 
 [sub_resource type="Resource" id="Resource_rabct"]
-script = ExtResource("1_cid2f")
+script = ExtResource("1_3ttdl")
 block_mode = 2
 end_point = Vector2i(2, -2)
 metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
 
 [sub_resource type="Resource" id="Resource_ekyf2"]
-script = ExtResource("1_cid2f")
+script = ExtResource("1_3ttdl")
 block_mode = 2
 end_point = Vector2i(2, 0)
 metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
 
 [sub_resource type="Resource" id="Resource_xyjuc"]
-script = ExtResource("1_cid2f")
+script = ExtResource("1_3ttdl")
 block_mode = 2
 end_point = Vector2i(0, 2)
 metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
 
 [sub_resource type="Resource" id="Resource_sb2e3"]
-script = ExtResource("1_cid2f")
+script = ExtResource("1_3ttdl")
 block_mode = 2
 end_point = Vector2i(-2, 2)
 metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
 
 [sub_resource type="Resource" id="Resource_t8vvf"]
-script = ExtResource("1_cid2f")
+script = ExtResource("1_3ttdl")
 block_mode = 2
 end_point = Vector2i(-3, 0)
 metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
 
 [sub_resource type="Resource" id="Resource_oc6m8"]
-script = ExtResource("1_cid2f")
+script = ExtResource("1_3ttdl")
 block_mode = 2
 end_point = Vector2i(0, -3)
 metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
 
 [sub_resource type="Resource" id="Resource_5aw4q"]
-script = ExtResource("1_cid2f")
+script = ExtResource("1_3ttdl")
 block_mode = 2
 end_point = Vector2i(3, -3)
 metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
 
 [sub_resource type="Resource" id="Resource_xhg2h"]
-script = ExtResource("1_cid2f")
+script = ExtResource("1_3ttdl")
 block_mode = 2
 end_point = Vector2i(3, 0)
 metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
 
 [sub_resource type="Resource" id="Resource_c28ge"]
-script = ExtResource("1_cid2f")
+script = ExtResource("1_3ttdl")
 block_mode = 2
 end_point = Vector2i(0, 3)
 metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
 
 [sub_resource type="Resource" id="Resource_5re68"]
-script = ExtResource("1_cid2f")
+script = ExtResource("1_3ttdl")
 block_mode = 2
 end_point = Vector2i(-3, 3)
 metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
 
 [sub_resource type="Resource" id="Resource_664wp"]
-script = ExtResource("1_cid2f")
+script = ExtResource("1_3ttdl")
 end_point = Vector2i(-4, 0)
 metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
 
 [sub_resource type="Resource" id="Resource_1tfry"]
-script = ExtResource("1_cid2f")
+script = ExtResource("1_3ttdl")
 end_point = Vector2i(0, -4)
 metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
 
 [sub_resource type="Resource" id="Resource_bk05i"]
-script = ExtResource("1_cid2f")
+script = ExtResource("1_3ttdl")
 end_point = Vector2i(4, -4)
 metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
 
 [sub_resource type="Resource" id="Resource_g4h6m"]
-script = ExtResource("1_cid2f")
+script = ExtResource("1_3ttdl")
 end_point = Vector2i(4, 0)
 metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
 
 [sub_resource type="Resource" id="Resource_wmgmy"]
-script = ExtResource("1_cid2f")
+script = ExtResource("1_3ttdl")
 end_point = Vector2i(0, 4)
 metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
 
 [sub_resource type="Resource" id="Resource_udok6"]
-script = ExtResource("1_cid2f")
+script = ExtResource("1_3ttdl")
 end_point = Vector2i(-4, 4)
 metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
 
+[sub_resource type="Resource" id="Resource_3ttdl"]
+script = ExtResource("1_3ttdl")
+end_point = Vector2i(-1, 0)
+metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
+
+[sub_resource type="Resource" id="Resource_p71nv"]
+script = ExtResource("1_3ttdl")
+end_point = Vector2i(0, -1)
+metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
+
+[sub_resource type="Resource" id="Resource_pmtpx"]
+script = ExtResource("1_3ttdl")
+end_point = Vector2i(1, 0)
+metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
+
+[sub_resource type="Resource" id="Resource_8ltmx"]
+script = ExtResource("1_3ttdl")
+end_point = Vector2i(0, 1)
+metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
+
+[sub_resource type="Resource" id="Resource_wl3jh"]
+script = ExtResource("1_3ttdl")
+end_point = Vector2i(1, -1)
+metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
+
+[sub_resource type="Resource" id="Resource_o5goj"]
+script = ExtResource("1_3ttdl")
+end_point = Vector2i(-1, 1)
+metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
+
 [sub_resource type="Resource" id="Resource_c4eyt"]
-script = ExtResource("1_cid2f")
+script = ExtResource("1_3ttdl")
 end_point = Vector2i(1, 0)
 metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
 
 [sub_resource type="Resource" id="Resource_nc463"]
-script = ExtResource("1_cid2f")
+script = ExtResource("1_3ttdl")
 end_point = Vector2i(0, -1)
 metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
 
 [sub_resource type="Resource" id="Resource_tcw8b"]
-script = ExtResource("1_cid2f")
+script = ExtResource("1_3ttdl")
 end_point = Vector2i(1, -1)
 metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
 
 [sub_resource type="Resource" id="Resource_npo2o"]
-script = ExtResource("1_cid2f")
+script = ExtResource("1_3ttdl")
 end_point = Vector2i(-1, 0)
 metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
 
 [sub_resource type="Resource" id="Resource_e4brp"]
-script = ExtResource("1_cid2f")
+script = ExtResource("1_3ttdl")
 end_point = Vector2i(0, 1)
 metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
 
 [sub_resource type="Resource" id="Resource_qm8vy"]
-script = ExtResource("1_cid2f")
+script = ExtResource("1_3ttdl")
 end_point = Vector2i(-1, 1)
 metadata/_custom_type_script = "uid://r6pn0sjb3vqc"
 
 [resource]
-script = ExtResource("3_rabct")
-name = "Archer"
+script = ExtResource("3_pmtpx")
+name = "Mage"
 type = 1
-frames = ExtResource("2_cid2f")
+frames = ExtResource("2_p71nv")
 hp = 1
-move_def = Array[ExtResource("1_cid2f")]([SubResource("Resource_c4eyt"), SubResource("Resource_nc463"), SubResource("Resource_tcw8b"), SubResource("Resource_npo2o"), SubResource("Resource_e4brp"), SubResource("Resource_qm8vy")])
-action_def = Array[ExtResource("1_cid2f")]([SubResource("Resource_cid2f"), SubResource("Resource_7vo8a"), SubResource("Resource_rabct"), SubResource("Resource_ekyf2"), SubResource("Resource_xyjuc"), SubResource("Resource_sb2e3"), SubResource("Resource_t8vvf"), SubResource("Resource_oc6m8"), SubResource("Resource_5aw4q"), SubResource("Resource_xhg2h"), SubResource("Resource_c28ge"), SubResource("Resource_5re68"), SubResource("Resource_664wp"), SubResource("Resource_1tfry"), SubResource("Resource_bk05i"), SubResource("Resource_g4h6m"), SubResource("Resource_wmgmy"), SubResource("Resource_udok6")])
+move_def = Array[ExtResource("1_3ttdl")]([SubResource("Resource_c4eyt"), SubResource("Resource_nc463"), SubResource("Resource_tcw8b"), SubResource("Resource_npo2o"), SubResource("Resource_e4brp"), SubResource("Resource_qm8vy")])
+action_def = Array[ExtResource("1_3ttdl")]([SubResource("Resource_cid2f"), SubResource("Resource_7vo8a"), SubResource("Resource_rabct"), SubResource("Resource_ekyf2"), SubResource("Resource_xyjuc"), SubResource("Resource_sb2e3"), SubResource("Resource_t8vvf"), SubResource("Resource_oc6m8"), SubResource("Resource_5aw4q"), SubResource("Resource_xhg2h"), SubResource("Resource_c28ge"), SubResource("Resource_5re68"), SubResource("Resource_664wp"), SubResource("Resource_1tfry"), SubResource("Resource_bk05i"), SubResource("Resource_g4h6m"), SubResource("Resource_wmgmy"), SubResource("Resource_udok6"), SubResource("Resource_3ttdl"), SubResource("Resource_p71nv"), SubResource("Resource_pmtpx"), SubResource("Resource_8ltmx"), SubResource("Resource_wl3jh"), SubResource("Resource_o5goj")])
 action_points = 1
+sprite_hue = Color(0, 0.65882355, 0.24705882, 0.8901961)
