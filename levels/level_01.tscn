@@ -22,15 +22,7 @@ position = Vector2(145, 111)
 def = ExtResource("3_gg43x")
 
 [node name="Enemy" parent="Units/Enemies" index="1" instance=ExtResource("2_81a5f")]
-position = Vector2(208, 44)
-def = ExtResource("4_mllcm")
-
-[node name="Enemy2" parent="Units/Enemies" index="2" instance=ExtResource("2_81a5f")]
-position = Vector2(96, 159)
-def = ExtResource("4_mllcm")
-
-[node name="Enemy4" parent="Units/Enemies" index="3" instance=ExtResource("2_81a5f")]
-position = Vector2(272, 143)
+position = Vector2(61, 158)
 def = ExtResource("4_mllcm")
 
 [node name="Exit" parent="Objects" index="0" instance=ExtResource("5_mllcm")]

@@ -128,8 +128,10 @@ func _on_movement_complete(unit_that_moved):
 		return
 	sprite.play("idle")
 	is_in_motion = false
-
-	await scan_for_opponents_and_attack()
+	
+	#Only player moves and attack
+	if not is_enemy:
+		await scan_for_opponents_and_attack()
 	await get_tree().create_timer(0.1).timeout
 	decrease_ap(1)
 	_evaluate_ap()
@@ -232,3 +234,9 @@ func _play_hit_animation():
 		tween.tween_property(self, "modulate", original_modulate, 0.08)
 		tween.tween_property(self, "scale", original_scale, 0.08)
 		await tween.finished
+		
+func get_attack_offsets() -> Array[Vector2i]:
+	var offsets: Array[Vector2i] = []
+	for action in def.action_def:
+		offsets.append(action.end_point)
+	return offsets

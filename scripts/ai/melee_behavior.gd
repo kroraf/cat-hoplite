@@ -39,7 +39,8 @@ func _decide_action() -> void:
 	_process_ai()
 
 func _execute_move() -> void:
-	var path = await _get_path_to_player()
+	#var path = await _get_path_to_player()
+	var path = await _get_path_to_best_firing_position()
 	
 	if path.size() > 1:
 		var next_cell = Vector2i(path[1])
@@ -63,20 +64,7 @@ func _end_turn() -> void:
 	turn_completed.emit()
 	current_state = AIState.DECIDE
 
-#func _get_path_to_player() -> PackedVector2Array:
-	#var enemy_cell = unit.grid_position
-	#var player_cell = player.grid_position
-	#var result = Navigation.find_optimal_approach_cell_and_path(player_cell, enemy_cell)
-	#return result.path
-
-#func _can_attack_player() -> bool:
-	#var enemy_cell = unit.grid_position
-	#var player_cell = player.grid_position
-	#var distance = Navigation.hex_distance(enemy_cell, player_cell)
-	#return distance == 1
-
 func _find_nearest_player() -> Unit:
-	# Wait a frame if unit_manager isn't ready
 	await get_tree().process_frame
 	
 	var unit_manager = get_node("/root/Game/UnitManager")
@@ -125,3 +113,44 @@ func _get_path_to_player() -> PackedVector2Array:
 	var player_cell = current_player.grid_position
 	var result = Navigation.find_optimal_approach_cell_and_path(player_cell, enemy_cell)
 	return result.path
+	
+func _get_path_to_best_firing_position():
+	var current_player = await _get_player()
+	var player_cell:Vector2i = current_player.grid_position
+	var firing_positions := get_firing_positions(player_cell)
+	var enemy_cell = unit.grid_position
+	var target_hex := player_cell
+	if not firing_positions.is_empty():
+		target_hex = choose_best_firing_position(enemy_cell, firing_positions)
+	var result = Navigation.get_movement_path(enemy_cell, target_hex)
+	return result
+
+func get_firing_positions(player_hex: Vector2i) -> Array[Vector2i]:
+	var positions: Array[Vector2i] = []
+
+	for offset in unit.get_attack_offsets():
+		var firing_hex = player_hex - offset
+
+		if Navigation.is_cell_walkable(firing_hex) and not OccupancyManager.is_tile_occupied(firing_hex):
+			positions.append(firing_hex)
+
+	return positions
+
+func choose_best_firing_position(
+	enemy_cell: Vector2i,
+	firing_positions: Array[Vector2i]
+) -> Vector2i:
+
+	var best_cell := enemy_cell
+	var best_cost := INF
+
+	for cell in firing_positions:
+		var path := Navigation.get_movement_path(enemy_cell, cell)
+		if path.is_empty():
+			continue
+
+		var cost := path.size()
+		if cost < best_cost:
+			best_cost = cost
+			best_cell = cell
+	return best_cell
